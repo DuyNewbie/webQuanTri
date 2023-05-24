@@ -1,0 +1,30 @@
+
+
+.logo{
+    max-width: 60px;
+    max-height: 60px;
+    margin: 7px 7px 7px 0px;
+    margin-right: 20px;
+}
+
+.headerMenu{
+    background-color: #38232860;
+}
+
+body{
+    background-color: #e3e3e3;
+}
+
+.content{
+    background-color: #3e292e30;
+}
+
+footer{
+    background-color: #382328f1;
+    color: #e3e3e3;
+}
+
+.bottomMenu li a{
+    text-decoration: none;
+    color: #ffffffb1;
+}
