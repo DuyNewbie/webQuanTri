@@ -1,0 +1,59 @@
+<%- include('./inc/header.ejs') %>
+
+<h2 class="text-center mt-4">Trang Chủ</h2>
+<!-- Thanh Dieu khien -->
+<div class="row mt-4">
+    <div class="col-md-6 col-sm-12">
+        <div class="col-auto mt-2">
+            <a href="/product/add">
+                <button type="button" class="btn btn-outline-primary" style="width: 150px;">Thêm sản phẩm</button>
+            </a>
+        </div>
+        <div class="col-auto mt-2">
+            <select id="priceSapXep" onchange="sapXepTheoGia()" class="form-select border border-primary"
+                style="width: 150px;">
+                <% let noneS='' ; let S1='' ; let S2='' ; 
+                if(typeSort=='1' ){ 
+                    S1=' selected ' ; 
+                }else if(typeSort=='-1'){ 
+                    S2=' selected ' ; 
+                }else{ noneS=' selected ' ; 
+                } %>
+                    <option <%=noneS %> value="0">Sắp xếp giá</option>
+                    <option <%=S1 %> value="1">Cao đến thấp</option>
+                    <option <%=S2 %> value="-1">Thấp đến cao</option>
+            </select>
+        </div>
+        <div class="col-auto mt-2">
+            <select id="locTheLoai" onchange="layIdTheLoai()" class="form-select border border-primary"
+                style="width: 150px;">
+                <option value="0">All</option>
+                <% listTL.forEach( (row)=> {
+                    let selected = '';
+                    if(String(row._id) == idTheLoai){
+                    selected = "selected"
+                    }
+                    %>
+                    <option <%=selected %> value="<%= row._id %>">
+                            <%= row.name %>
+                    </option>
+                    <% }); %>
+            </select>
+        </div>
+        <div class="col-auto mt-2">
+            <button class="btn border border-primary" onclick="window.print()" style="width: 150px;">Xuất File</button>
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12">
+        <nav class="navbar col-auto">
+            <div class="container-fluid">
+                <form class="d-flex" role="search" action="/product/search/">
+                    <input class="form-control me-2 border border-primary" type="search" placeholder="Search theo tên"
+                        aria-label="Search" style="width: 300px;" name="name" value="<%= name %>">
+                    <button class="btn btn-outline-primary" type="submit" style="width: 150px;">Tìm kiếm</button>
+                </form>
+            </div>
+        </nav>
+    </div>
+</div>
+<%- include('./inc/footer.ejs') %>
