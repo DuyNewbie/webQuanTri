@@ -5,7 +5,7 @@ const categorySchema = new DB.mongoose.Schema(
         name : {type : String , require : true}
     },
     {
-        collation : 'Tb_Category'
+        collection : 'Tb_Category'
     }
 )
 let categoryModel = DB.mongoose.model('categoryModel', categorySchema);
@@ -21,7 +21,7 @@ const productSchema = new DB.mongoose.Schema(
         quantity : {type : Number , require : true}
     },
     {
-
+        collection : 'Tb_Product'
     }
 )
 let productModel = DB.mongoose.model('productModel' , productSchema);

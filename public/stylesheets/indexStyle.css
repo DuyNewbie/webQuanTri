@@ -7,12 +7,27 @@
     margin-right: 20px;
 }
 
-.navbar{
+.colerHeader{
     background-color: #38232860;
 }
 
 body{
     background-color: #e3e3e3;
+}
+
+.boderBtn {
+    border-color: #382328f1;
+    border-width: 1px;
+}
+
+.boderCard {
+    border-color: #382328f1;
+    border-width: 2px;
+}
+
+.btnCustem {
+    border-color: #382328f1;
+    border-width: 1px;
 }
 
 .content{

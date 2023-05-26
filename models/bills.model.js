@@ -3,12 +3,12 @@ var DB = require('./db');
 const billSchema = new DB.mongoose.Schema(
     {
         id_user : {type : DB.mongoose.Schema.Types.ObjectId , ref : 'userModel'},
-        id_cart : {type : DB.mongoose.Schema.Types.ObjectId , ref : 'cartModel'},
+        id_cart : {type : Array, require: true},
         prices : {type : Number , require : false},
         date : {type : String , require : true},
     },
     {
-        collation : 'Tb_HoaDon'
+        collection : 'Tb_HoaDon'
     }
 )
 let billModel = DB.mongoose.model('billModel' , billSchema);
@@ -19,7 +19,7 @@ const cartSchema = new DB.mongoose.Schema(
         quantity : {type : Number , require : true}
     },
     {
-        collation : 'Tb_HoaDon_Product'
+        collection : 'Tb_HoaDon_Product'
     }
 )
 let cartModel = DB.mongoose.model('cartModel' , cartSchema)

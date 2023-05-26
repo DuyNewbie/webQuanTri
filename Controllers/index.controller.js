@@ -1,5 +1,21 @@
+var myDBProduct = require('../models/products.model');
+var myDBUser = require('../models/users.model');
+var myDBBill = require('../models/bills.model');
 
-exports.index = (req , res , next) =>{
+exports.index = async (req , res , next) =>{
+    var title = "Trang chủ"
 
-    res.render('index');
+    let soLuongCate = await myDBProduct.categoryModel.find().count()
+    let soLuongProd = await myDBProduct.productModel.find().count()
+    // let soLuongUser = await myDBUser.userModel.find({role: user}).count()
+    // let soLuongAdmin = await myDBUser.userModel.find({role: admin}).count()
+
+
+    res.render('index', {
+        title: title, 
+        category: soLuongCate, 
+        product: soLuongProd, 
+        // user: soLuongUser, 
+        // admin: soLuongAdmin 
+    })
 }

@@ -1,5 +1,40 @@
-<%- include('./inc/header.ejs') %>
+<%- include('../inc/header.ejs') %>
 
-<h2 class="text-center mt-4">Trang Chủ</h2>
+<div class="p-3 p-sm-5">
+    <h2 class="text-center mb-5"><%= title %></h2>
+    <!-- Thanh Dieu khien -->
+    <div class="row">
+        <div class="col-md-6 col-sm-12 row">
+            <div class="col-md-3 col-sm-6 mt-2">
+                <a href="/category/add">
+                    <button type="button" class="btn btnCustem" style="width: 150px;">Thêm</button>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-6 mt-2">
+                <select id="priceSapXep" class="form-select boderBtn" style="width: 150px;">
+                    <option>Sắp xếp giá</option>
+                    <option>Cao đến thấp</option>
+                    <option>Thấp đến cao</option>
+                </select>
+            </div>
+            <div class="col-md-3 col-sm-6 mt-2">
+                <select class="form-select boderBtn" style="width: 150px;">
+                    <option value="0">All</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12 d-flex justify-content-end">
+            <nav class="navbar">
+                <div class="container-fluid">
+                    <form class="d-flex" role="search" action="/product/search/">
+                        <input class="form-control me-2 boderBtn" type="search" placeholder="Search theo tên"
+                            aria-label="Search" style="width: 300px;" name="name">
+                        <button class="btn btnCustem" type="submit" style="width: 150px;">Tìm kiếm</button>
+                    </form>
+                </div>
+            </nav>
+        </div>
+    </div>
+</div>
 
-<%- include('./inc/footer.ejs') %>
+<%- include('../inc/footer.ejs') %>

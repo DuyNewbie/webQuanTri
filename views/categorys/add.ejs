@@ -1,5 +1,35 @@
-<%- include('./inc/header.ejs') %>
-
-<h2 class="text-center mt-4">Trang Chủ</h2>
-
-<%- include('./inc/footer.ejs') %>
+<%- include('../inc/header.ejs') %>
+<div class="p-3 p-sm-5">
+    <h2 class="text-center mb-5"><%= title %></h2>
+    <!-- Thêm thể loại -->
+    <div class="row mb-5" >
+        <div class="col-2"></div>
+        <div class="col-8 card mt-4 boderCard">
+            <div class="text-center mt-4">
+                <p style="color: red; font-style: italic; font-size: 28px;">
+                    
+                </p>
+            </div>
+            <form class="p-5" action="" method="post">
+                <div class="row mb-3">
+                    <div class="col-1"></div>
+                    <div class="col-10 form-floating">
+                        <input type="text" class="form-control boderBtn rounded-2" id="floatingInput"
+                           name="name" placeholder="Password" required>
+                        <label class="ms-3" for="floatingInput">Tên thể loại</label>
+                    </div>
+                    <div class="mb-3">
+                        <label for="formGroupExampleInput" class="form-label">Example label</label>
+                        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input placeholder">
+                      </div>
+                    <div class="col-1"></div>
+                </div>
+                <div class="mt-4 text-center">
+                    <button type="submit" class="btn btnCustem" style="width: 200px; height: 48px; font-size: 24px; font-weight: 500;">Save</button>
+                </div>
+            </form>   
+        </div>
+        <div class="col-2"></div>
+    </div>
+</div>
+<%- include('../inc/footer.ejs') %>

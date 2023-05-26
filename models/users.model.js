@@ -9,7 +9,7 @@ const userSchema = new DB.mongoose.Schema(
         email : {type : String , require : false},
         phone : {type : String , require : false},
         address : {type : String , require : false},
-        rote : {type : String , require : false},
+        role : {type : String , require : false},
     },
     {
         collection : 'Tb_User'
