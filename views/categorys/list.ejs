@@ -7,7 +7,7 @@
         <div class="col-md-6 col-sm-12 row">
             <div class="col-md-3 col-sm-6 mt-2">
                 <a href="/category/add">
-                    <button type="button" class="btn btnCustem" style="width: 150px;">Thêm</button>
+                    <button type="button" class="btnCustom" style="width: 150px;">Thêm</button>
                 </a>
             </div>
             <div class="col-md-3 col-sm-6 mt-2">
@@ -29,12 +29,98 @@
                     <form class="d-flex" role="search" action="/product/search/">
                         <input class="form-control me-2 boderBtn" type="search" placeholder="Search theo tên"
                             aria-label="Search" style="width: 300px;" name="name">
-                        <button class="btn btnCustem" type="submit" style="width: 150px;">Tìm kiếm</button>
+                        <button class="btnCustom" type="submit" style="width: 150px;">Tìm kiếm</button>
                     </form>
                 </div>
             </nav>
         </div>
     </div>
+
+    <table class="table table-bordered table-hover mt-2">
+        <thead class="borderTable bg-thead">
+            <tr>
+                <th scope="col" class="col-1 text-center">STT</th>
+                <th scope="col" class="col-2 text-center">Tên</th>
+
+                <th scope="col" class="col-1 text-center">Sửa</th>
+                <th scope="col" class="col-1 text-center">Xóa</th>
+            </tr>
+        </thead>
+        <tbody class="borderTable">
+            <% for(let i = 0;i < listCate.length ; i++){ %>
+            <tr>
+                <th scope="row" class="text-center"><%= i + 1 %></th>
+                <td class="text-center"><%= listCate[i].name %></td>
+
+                <td class="text-center">
+                    <button type="button" class="btn btn-success p-2" data-bs-toggle="modal"
+                        data-bs-target="#suaLoai<%= listCate[i]._id %>">
+                        <img src="/images/editbold_white.png" alt="" width="30px" height="30px">
+                    </button>
+            
+                    <div class="modal fade" id="suaLoai<%= listCate[i]._id %>" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                           <form action="" method="post">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Sửa sản phẩm</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <input type="hidden" name="idLoai" value="<%= listCate[i]._id %>">
+                                    <div class="mb-4">
+                                        <label for="exampleInputEmail1" class="form-label" >Tên</label>
+                                        <input type="text" class="form-control" name="name"  value="<%= listCate[i].name %>">
+                                    </div>
+                                    
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </div>
+                           </form>
+                        </div>
+                    </div>
+                </td>
+                <td class="text-center">
+                    <button type="button" class="btn btn-danger p-2" data-bs-toggle="modal"
+                        data-bs-target="#xoaSPModal<%= listCate[i]._id %>">
+                        <img src="/images/deleteWhite.png" alt="" width="30px" height="30px">
+                    </button>
+            
+                    <div class="modal fade" id="xoaSPModal<%= listCate[i]._id %>" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Xóa sản phẩm</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Bạn có chắc muốn xóa loại sản phẩm này ?</p>
+                                    <p>Nếu xóa thì các sản phẩm có cùng thể loại cũng bị xóa theo!</p>
+                                
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
+                                        
+                                    <a class="btn btn-primary" href="/category/delete/<%= listCate[i]._id %>">Xóa</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <% } %>
+        </tbody>
+    </table>
+
 </div>
 
 <%- include('../inc/footer.ejs') %>

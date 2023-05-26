@@ -1,3 +1,27 @@
+<% 
+    var acHome = '';
+    var acProduct = '';
+    var acUser = '';
+    var acBill = '';
+
+    if (typeof(title) == 'undefined') {
+        title = '';
+    }
+
+    if(title != ''){
+        if(title == "Trang chủ"){
+            var acHome = 'active';
+        }else if(title == "Danh Sách Sản Phẩm" || title == "Danh Sách Thể Loại"){
+            var acProduct = 'active';
+        }else if(title == "Danh Sách Tài khoản"){
+            var acUser = 'active';
+        }else if(title == "Danh Sách hóa đơn"){
+            var acBill = 'active';
+        }
+    }
+
+%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,6 +29,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title %></title>
+    <link rel="icon" type="image/x-icon" href="/images/logo.png">
     <link rel="stylesheet" href="/stylesheets/css/bootstrap.min.css">
     <link rel="stylesheet" href="/stylesheets/indexStyle.css">
     <link rel="stylesheet" href="/images/bootstrap-icons-1.10.5/font/bootstrap-icons.css">
@@ -21,10 +46,10 @@
                 <div class="collapse navbar-collapse fw-semibold fs-5" id="navbarSupportedContent">
                 <ul class="nemuTop navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/">Home</a>
+                    <a class="nav-link <%- acHome %>" aria-current="page" href="/">Home</a>
                     </li>
                     <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle <%- acProduct %>" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Sản phẩm
                     </a>
                     <ul class="dropdown-menu">
@@ -33,10 +58,10 @@
                     </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/account">Tài khoản</a>
+                        <a class="nav-link <%- acUser %>" href="/account">Tài khoản</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/bill">Hóa đơn</a>
+                        <a class="nav-link <%- acBill %>" href="/bill">Hóa đơn</a>
                     </li>
                 </ul>
                 </div>

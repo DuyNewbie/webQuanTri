@@ -7,7 +7,7 @@ exports.list = async (req, res, next) => {
     let list = await myDB.categoryModel.find(dieuKiemLoc);
 
 
-    res.render('categorys/list', { title: title, list: list, msg: msg })
+    res.render('categorys/list', { title: title, listCate : list, msg: msg })
 }
 
 exports.add = async (req, res, next) => {

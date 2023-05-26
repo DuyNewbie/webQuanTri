@@ -28,9 +28,11 @@ exports.list = async (req, res, next) => {
     console.log("chưa sắp xếp: " + req.params.price);
 
     let listProd = await myDB.productModel.find(dieuKienLoc).sort(dieuKienSapXep).populate('id_category')
-    let listCate = await myDB.categoryModel.find()
+    let listCate = await myDB.categoryModel.find();
+
     res.render('products/list', { 
-        title: title, msg: msg, listProd: listProd, 
+        title: title, msg: msg, 
+        listProd: listProd, 
         listCate: listCate, 
         // idTheLoai: req.params.idtl, 
         // name: req.query.name, 
