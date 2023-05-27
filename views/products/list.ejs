@@ -58,7 +58,7 @@
                     <th scope="row" class="text-center">
                         <%= i + 1 %>
                     </th>
-                    <td class="text-center"><img src="/images/dienthoai/<%= listProd[i].image %>" alt="" width="80px" height="80px">
+                    <td class="text-center"><img src="/images/imgProduct/<%= listProd[i].image %>" alt="" width="80px" height="80px">
                     </td>
                     <td class="text-center">
                         <a href="/sp/chi-tiet/<%= listProd[i]._id %>"><%= listProd[i].name %></a>
@@ -79,11 +79,12 @@
                     <th class="text-center">
                         <%= listProd[i].quantity %>
                     </th>
+                    <!-- Chức năng sửa -->
                     <td class="text-center">
 
                         <button type="button" class="btn btn-success p-2" data-bs-toggle="modal"
-                            data-bs-target="#suaSPModal<%= listProd[i]._id %>">
-                            <img src="/images/editbold_white.png" alt="" width="30px" height="30px">
+                            data-bs-target="#suaSPModal<%= listProd[i]._id %>" style="width: 48px; height: 48px;">
+                            <i class="bi bi-pencil " style="font-size: 1.5rem;"></i>
 
                         </button>
 
@@ -157,10 +158,11 @@
                             </div>
                         </div>
                     </td>
+                    <!-- Chức năng xóa -->
                     <td class="text-center">
                         <button type="button" class="btn btn-danger p-2" data-bs-toggle="modal"
-                            data-bs-target="#xoaSP<%= listProd[i]._id%>">
-                            <img src="/images/deleteWhite.png" alt="" width="30px" height="30px">
+                            data-bs-target="#xoaSP<%= listProd[i]._id%>" style="width: 48px; height: 48px;">
+                            <i class="bi bi-trash3" style="font-size: 1.5rem; text-align: center;"></i>
                         </button>
 
                         <div class="modal fade" id="xoaSP<%= listProd[i]._id%>" tabindex="-1"

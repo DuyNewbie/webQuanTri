@@ -1,5 +1,82 @@
 <%- include('../inc/header.ejs') %>
-<div class="p-3 p-sm-5">
-    <h2 class="text-center mt-4"></h2>
-</div>
-<%- include('../inc/footer.ejs') %>
+    <div class="p-3 p-sm-5">
+        <h2 class="text-center">
+            <%= title %>
+        </h2>
+        <!-- Thêm sản phẩm -->
+        <div class="row mb-5">
+            <div class="col-2"></div>
+            <div class="col-8 card mt-4 boderCard">
+                <div class="text-center mt-4">
+                    <p style="color: red; font-style: italic; font-size: 28px;">
+                        <%= msg %>
+                    </p>
+                </div>
+                <form class="p-5" action="" method="post">
+                    <div class="row mb-3">
+                        <!--image -->
+                        <div class="col-1"></div>
+                        <div class="col-10">
+                            <div class=" input-group boderBtn rounded-2">
+                                <input name="image" type="file" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-1"></div>
+                        <!--category -->
+                        <div class="col-1"></div>
+                        <div class="col-10 mt-2">
+                            <select name="category" class="form-select boderBtn rounded-2"
+                                aria-label="Default select example">
+                                <option selected>Chọn thể loại</option>
+                                <% listTL.forEach( (row)=> { %>
+                                    <option value="<%= row._id %>">
+                                        <%= row.name %>
+                                    </option>
+                                    <% }); %>
+                            </select>
+                        </div>
+                        <div class="col-1"></div>
+                        <!--name -->
+                        <div class="col-1"></div>
+                        <div class="col-10 form-floating mt-2">
+                            <input type="text" class="form-control boderBtn rounded-2" id="floatingInput" name="name"
+                                placeholder="Password" required>
+                            <label class="ms-3" for="floatingInput">Tên sản phẩm</label>
+                        </div>
+                        <div class="col-1"></div>
+                        <!--price -->
+                        <div class="col-1"></div>
+                        <div class="col-10 form-floating mt-2">
+                            <input type="number" class="form-control boderBtn rounded-2" id="floatingInput" name="price"
+                                placeholder="Password" required>
+                            <label class="ms-3" for="floatingInput">Giá sản phẩm</label>
+                        </div>
+                        <div class="col-1"></div>
+                        <!--số lượng -->
+                        <div class="col-1"></div>
+                        <div class="col-10 form-floating mt-2">
+                            <input type="number" class="form-control boderBtn rounded-2" id="floatingInput"
+                                name="quantity" placeholder="Password" required>
+                            <label class="ms-3" for="floatingInput">Số lượng sản phẩm</label>
+                        </div>
+                        <div class="col-1"></div>
+                        <!--chi tiết -->
+                        <div class="col-1"></div>
+                        <div class="col-10 form-floating mt-2">
+                            <textarea name="detail" class="form-control boderBtn rounded-2"
+                                placeholder="Nhập mô tả sản phẩm" id="floatingTextarea2" style="height: 100px"
+                                required></textarea>
+                            <label class="ms-3" for="floatingTextarea2">Mô tả sản phẩm</label>
+                        </div>
+                        <div class="col-1"></div>
+                    </div>
+                    <div class="mt-4 text-center">
+                        <button type="submit" class=" btnCustem"
+                            style="width: 200px; height: 48px; font-size: 24px; font-weight: 500;">Save</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-2"></div>
+        </div>
+    </div>
+    <%- include('../inc/footer.ejs') %>

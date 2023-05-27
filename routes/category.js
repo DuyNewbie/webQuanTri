@@ -7,5 +7,9 @@ router.get('/', categoryCtrl.list);
 router.get('/add', categoryCtrl.add);
 router.post('/add', categoryCtrl.add);
 
+router.get('/edit/:idCate', categoryCtrl.edit);
+router.post('/edit/:idCate', categoryCtrl.edit);
+
+router.get('/delete/:idCate', categoryCtrl.delete);
 
 module.exports = router;
