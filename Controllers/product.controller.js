@@ -1,6 +1,6 @@
 const { log } = require('console');
 var myDB = require('../models/products.model')
-var fs = require('fs')
+var fs = require('fs');
 
 exports.list = async (req, res, next) => {
     let title = 'Danh Sách Sản Phẩm';
@@ -41,6 +41,7 @@ exports.list = async (req, res, next) => {
 }
 
 exports.add = async (req, res, next) => {
+    console.log(req.body , req.file);
     let title = 'Thêm Sản Phẩm';
     let msg = '';
     let listTL = await myDB.categoryModel.find()
@@ -50,14 +51,18 @@ exports.add = async (req, res, next) => {
             objSP.name = req.body.name;
             objSP.price = req.body.price;
             objSP.detail = req.body.detail;
-            // fs.renameSync(req.file.path, './public/imgProduct/' + req.file.originalname);
-            // // dùng url file để ghi vào csdl
-            // objSP.image = '/imgProduct/' + req.file.originalname
+
+
+            fs.renameSync(req.file.path, './public/imgProduct/' + req.file.originalname);
+            // dùng url file để ghi vào csdl
+            objSP.image = '/imgProduct/' + req.file.originalname
+
+
             objSP.id_category = req.body.category;
             objSP.quantity = req.body.quantity
 
 
-            let new_SP = await objSP.save();
+            await objSP.save();
             msg = "Thêm sản phẩm thành công"
             res.redirect('/product')
         } catch (error) {
@@ -68,6 +73,6 @@ exports.add = async (req, res, next) => {
     res.render('products/add', { 
         title: title, msg: msg, 
         listTL: listTL 
-    })
+    });
 }
 

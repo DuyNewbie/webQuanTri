@@ -41,10 +41,9 @@
         <thead class="borderTable bg-thead">
             <tr>
                 <th scope="col" class="col-1 text-center">STT</th>
-                <th scope="col" class="col-1 text-center">Ảnh</th>
-                <th scope="col" class="col-2 text-center">Tên</th>
-                <th scope="col" class="col-1 text-center">Loại</th>
-                <th scope="col" class="col-3 text-center">Mô tả</th>
+                <th scope="col" class="col-2 d-none d-md-table-cell text-center">Ảnh</th>
+                <th scope="col" class="col-3 text-center">Tên</th>
+                <th scope="col" class="col-2 d-none d-sm-table-cell text-center">Loại</th>
                 <th scope="col" class="col-1 text-center">Giá</th>
                 <th scope="col" class="col-1 text-center">Số lượng</th>
 
@@ -58,19 +57,16 @@
                     <th scope="row" class="text-center">
                         <%= i + 1 %>
                     </th>
-                    <td class="text-center"><img src="/images/imgProduct/<%= listProd[i].image %>" alt="" width="80px" height="80px">
+                    <td class="text-center d-none d-md-table-cell"><img src="<%= listProd[i].image %>" alt="" width="80px" height="80px">
                     </td>
                     <td class="text-center">
                         <a href="/sp/chi-tiet/<%= listProd[i]._id %>"><%= listProd[i].name %></a>
                         
                     </td>
-                    <td class="text-center">
+                    <td class="text-center d-none d-sm-table-cell">
                         <% if(typeof(listProd[i].id_category) != 'undefined' ) { %>
                             <%= listProd[i].id_category.name %>
                                 <% } %>
-                    </td>
-                    <td class="text-center">
-                        <%= listProd[i].detail %>
                     </td>
                     <th class="text-center">
                         <%= listProd[i].price %>

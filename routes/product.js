@@ -1,16 +1,15 @@
 var express = require('express');
 var router = express.Router();
 var productCtrl = require('../Controllers/product.controller');
-var multer = require('multer')
-var uploadImg = multer({dest: './tmp'})
 
+const multer = require('multer');
+var upLoader = multer({dest : './tmp'});
 
 router.get('/', productCtrl.list);
 
 router.get('/add', productCtrl.add);
-router.post('/add',uploadImg.single("image") , productCtrl.add);
-
-
+router.post('/add',upLoader.single("image-product") , productCtrl.add);
+router.post('/add', productCtrl.add);
 
 
 module.exports = router;
