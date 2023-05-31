@@ -94,12 +94,12 @@
                                             aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <form action="" method="post">
-                                            <input type="hidden" name="idSP" value="<%= listProd[i]._id %>">
+                                        <form action="" method="post" enctype="multipart/form-data">
+                                            <input type="hidden" name="idProduct" value="<%= listProd[i]._id %>">
                                             <div class="input-group mb-3">
                                                 <label class="input-group-text"
                                                     for="inputGroupFile01">Ảnh</label>
-                                                <input type="file" class="form-control">
+                                                <input name="uimage-product" type="file" class="form-control" value="<%= listProd[i].image %>" >
                                             </div>
 
                                             <div class="mb-4">
@@ -110,37 +110,37 @@
 
                                             <div class="mb-4">
                                                 <label for="exampleInputEmail1" class="form-label">Lọai</label>
-
                                                 <select name="category">
-                                                    <% listCate.forEach( (row)=> { %>
-                                                        <%  
+                                                    <% listCate.forEach( (row)=> {
                                                             let selected = '';
-                                                            if(String(row._id) == listProd[i].id_category){
-                                                                selected = 'selected';
-                                                            } 
+                                                            if(String(row._id) == listProd[i].id_category._id){
+                                                                selected = ' selected ';
+                                                            }
                                                         %>
-                                                    
-                                                        <option <%= selected%> value="<%= row._id %>">
+                                                        <option <%= selected %> value="<%= row._id %>">
                                                                 <%= row.name %>
                                                         </option>
                                                         <% }) %>
-
                                                 </select>
-
                                             </div>
-
 
                                             <div class="mb-3  mt-3">
                                                 <label for="exampleInputEmail1" class="form-label">Giá</label>
-                                                <input type="number" class="form-control" id="inputTen" min="0"
+                                                <input type="number" class="form-control" id="inputPrice" min="0"
                                                     name="price" value="<%= listProd[i].price %>">
+                                            </div>
+
+                                            <div class="mb-3  mt-3">
+                                                <label for="exampleInputEmail1" class="form-label">Số lượng</label>
+                                                <input type="number" class="form-control" id="inputSoLuong" min="0"
+                                                    name="quantity" value="<%= listProd[i].quantity %>">
                                             </div>
 
                                             <div class="mb-3">
                                                 <label for="exampleInputEmail1" class="form-label">Nội
                                                     dung</label>
                                                 <textarea class="form-control" name="description" id="inputTen"
-                                                    cols="30" rows="5"><%= listProd[i].description %></textarea>
+                                                    cols="30" rows="5"><%= listProd[i].detail %></textarea>
                                             </div>
 
                                     </div>
@@ -149,7 +149,7 @@
                                             data-bs-dismiss="modal">Close</button>
                                         <button type="submit" class="btn btn-primary">Save changes</button>
                                     </div>
-                                    </form>
+                                </form>
                                 </div>
                             </div>
                         </div>
