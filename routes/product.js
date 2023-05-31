@@ -7,6 +7,8 @@ var upLoader = multer({dest : './tmp'});
 
 
 router.get('/', productCtrl.list);
+router.post('/' , upLoader.single("uimage-product") , productCtrl.updateP);
+router.post('/' , productCtrl.updateP);
 
 router.get('/add', productCtrl.add);
 router.post('/add',upLoader.single("image-product") , productCtrl.add);

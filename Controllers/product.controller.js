@@ -41,7 +41,6 @@ exports.list = async (req, res, next) => {
 }
 
 exports.add = async (req, res, next) => {
-    console.log(req.body , req.file);
     let title = 'Thêm Sản Phẩm';
     let msg = '';
     let listTL = await myDB.categoryModel.find()
@@ -103,3 +102,33 @@ exports.detail = async (req, res, next) => {
     res.render('products/detail', { title: tieuDe, data: data, msg: msg })
 }
 
+
+exports.updateP = async (req,res,next) => {
+    let msg = '';
+    
+    if (req.method == 'POST') {
+        let idProduct = req.body.idProduct;
+        let objProdut = await myDB.productModel.findById(idProduct);
+
+        fs.renameSync(req.file.path, './public/imgProduct/' + req.file.originalname);
+        objProdut.image = '/imgProduct/' + req.file.originalname;
+        
+        objProdut.name = req.body.name;
+        objProdut.id_category = req.body.category;
+        objProdut.price = req.body.price;
+        objProdut.quantity = req.body.quantity;
+        objProdut.detail = req.body.detail;
+       
+        try{
+            await myDB.productModel.findByIdAndUpdate(idProduct, objProdut);
+            msg = "Sửa thể tài khoản thành công"
+            res.redirect('/product');
+        }catch(error){
+            console.log(error)
+            msg = "Sửa thể tài khoản không thành công"
+            res.redirect('/product');
+        }
+    }
+
+    res.render('products/list', {msg});
+}
