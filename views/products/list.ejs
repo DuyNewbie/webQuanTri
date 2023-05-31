@@ -1,195 +1,233 @@
 <%- include('../inc/header.ejs') %>
-
-<div class="p-3 p-sm-5">
-    <h2 class="text-center mb-5"><%= title %></h2>
-    <!-- Thanh Dieu khien -->
-    <div class="row">
-        <div class="col-md-6 col-sm-12 row">
-            <div class="col-md-3 col-sm-6 mt-2">
-                <a href="/product/add">
-                    <button type="button" class="btnCustom" style="width: 150px;">Thêm</button>
-                </a>
-            </div>
-            <div class="col-md-3 col-sm-6 mt-2">
-                <select id="priceSapXep" class="form-select boderBtn" style="width: 150px;">
-                    <option>Sắp xếp giá</option>
-                    <option>Cao đến thấp</option>
-                    <option>Thấp đến cao</option>
-                </select>
-            </div>
-            <div class="col-md-3 col-sm-6 mt-2">
-                <select class="form-select boderBtn" style="width: 150px;">
-                    <option value="0">All</option>
-                </select>
-            </div>
-        </div>
-        <div class="col-md-6 col-sm-12 d-flex justify-content-end">
-            <nav class="navbar">
-                <div class="container-fluid">
-                    <form class="d-flex" role="search" action="/product/search/">
-                        <input class="form-control me-2 boderBtn" type="search" placeholder="Search theo tên"
-                            aria-label="Search" style="width: 300px;" name="name">
-                        <button class="btnCustom" type="submit" style="width: 150px;">Tìm kiếm</button>
-                    </form>
+    <script>
+        function layIdTheLoai() {
+            category = document.getElementById("locTheLoai").value;
+            window.location = '/product/filter/' + category;
+        }
+        function sapXepTheoGia() {
+            price = document.getElementById("priceSapXep").value;
+            console.log(price);
+            window.location = '/product/sort/' + price;
+        }
+    </script>
+    <div class="p-3 p-sm-5">
+        <h2 class="text-center mb-5">
+            <%= title %>
+        </h2>
+        <!-- Thanh Dieu khien -->
+        <div class="row">
+            <div class="col-md-6 col-sm-12 row">
+                <div class="col-md-3 col-sm-6 mt-2">
+                    <a href="/product/add">
+                        <button type="button" class="btnCustom" style="width: 150px;">Thêm</button>
+                    </a>
                 </div>
-            </nav>
+                <div class="col-md-3 col-sm-6 mt-2">
+                    <select id="priceSapXep" onchange="sapXepTheoGia()" class="form-select boderBtn"
+                        style="width: 150px;">
+                        <% let noneS='' ; let S1='' ; let S2='' ; 
+                        if(typeSort=='1' ){ 
+                            S1=' selected '; 
+                        }else if(typeSort=='-1' ){ 
+                            S2=' selected '; 
+                        }else{ 
+                            noneS=' selected '; 
+                        } %>
+                            <option <%=noneS %> value="0">Sắp xếp giá</option>
+                            <option <%=S2 %> value="-1">Cao đến thấp</option>
+                            <option <%=S1 %> value="1">Thấp đến cao</option>
+                    </select>
+                </div>
+                <div class="col-md-3 col-sm-6 mt-2">
+                    <select id="locTheLoai" onchange="layIdTheLoai()" class="form-select boderBtn"
+                        style="width: 150px;">
+                        <option value="0">All</option>
+                        <% listCate.forEach( (row)=> {
+                            let selected = '';
+                            if(String(row._id) == idTheLoai){
+                            selected = "selected"
+                            }
+                            %>
+                            <option <%=selected %> value="<%= row._id %>">
+                                    <%= row.name %>
+                            </option>
+                            <% }); %>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12 d-flex justify-content-end">
+                <nav class="navbar">
+                    <div class="container-fluid">
+                        <form class="d-flex" role="search" action="/product/search/">
+                            <input class="form-control me-2 boderBtn" type="search"
+                                placeholder="Search theo tên sản phẩm" aria-label="Search" style="width: 300px;"
+                                name="name" value="<%= name %>">
+                            <button class="btnCustom" type="submit" style="width: 150px;">Tìm kiếm</button>
+                        </form>
+                    </div>
+                </nav>
+            </div>
         </div>
-    </div>
 
 
-    <table class="table table-bordered table-hover mt-2">
-        <thead class="borderTable bg-thead">
-            <tr>
-                <th scope="col" class="col-1 text-center">STT</th>
-                <th scope="col" class="col-1 d-none d-md-table-cell text-center">Ảnh</th>
-                <th scope="col" class="col-3 text-center">Tên</th>
-                <th scope="col" class="col-2 d-none d-sm-table-cell text-center">Loại</th>
-                <th scope="col" class="col-1 text-center">Giá</th>
-                <th scope="col" class="col-1 text-center">Số lượng</th>
-                <th scope="col" class="col-1 d-none d-sm-table-cell text-center">Bình luận</th>
-                <th scope="col" class="col-1 text-center">Sửa</th>
-                <th scope="col" class="col-1 text-center">Xóa</th>
-            </tr>
-        </thead>
-        <tbody class="borderTable">
-            <% for(let i=0;i < listProd.length ; i++){ %>
+        <table class="table table-bordered table-hover mt-2">
+            <thead class="borderTable bg-thead">
                 <tr>
-                    <th scope="row" class="text-center">
-                        <%= i + 1 %>
-                    </th>
-                    <td class="text-center d-none d-md-table-cell"><img src="<%= listProd[i].image %>" alt="" width="80px" height="80px">
-                    </td>
-                    <td class="text-center">
-                        <a href="/product/detail/<%= listProd[i]._id %>" style="text-decoration: none; color: black;"><%= listProd[i].name %></a>
-                        
-                    </td>
-                    <td class="text-center d-none d-sm-table-cell">
-                        <% if(typeof(listProd[i].id_category) != 'undefined' ) { %>
-                            <%= listProd[i].id_category.name %>
-                                <% } %>
-                    </td>
-                    <th class="text-center" style="font-weight: 400;">
-                        <%= listProd[i].price %> VNĐ
-                    </th>
+                    <th scope="col" class="col-1 text-center">STT</th>
+                    <th scope="col" class="col-1 d-none d-md-table-cell text-center">Ảnh</th>
+                    <th scope="col" class="col-3 text-center">Tên</th>
+                    <th scope="col" class="col-2 d-none d-sm-table-cell text-center">Loại</th>
+                    <th scope="col" class="col-1 text-center">Giá</th>
+                    <th scope="col" class="col-1 text-center">Số lượng</th>
+                    <th scope="col" class="col-1 d-none d-sm-table-cell text-center">Bình luận</th>
+                    <th scope="col" class="col-1 text-center">Sửa</th>
+                    <th scope="col" class="col-1 text-center">Xóa</th>
+                </tr>
+            </thead>
+            <tbody class="borderTable">
+                <% for(let i=0;i < listProd.length ; i++){ %>
+                    <tr>
+                        <th scope="row" class="text-center">
+                            <%= i + 1 %>
+                        </th>
+                        <td class="text-center d-none d-md-table-cell"><img src="<%= listProd[i].image %>" alt=""
+                                width="80px" height="80px">
+                        </td>
+                        <td class="text-center">
+                            <a href="/product/detail/<%= listProd[i]._id %>"
+                                style="text-decoration: none; color: black;">
+                                <%= listProd[i].name %>
+                            </a>
 
-                    <th class="text-center" style="font-weight: 400;">
-                        <%= listProd[i].quantity %>
-                    </th>
-                    <th class="text-center d-none d-sm-table-cell" style="font-weight: 400;">
-                        <%= listProd[i].quantity %>
-                    </th>
-                    <!-- Chức năng sửa -->
-                    <td class="text-center">
+                        </td>
+                        <td class="text-center d-none d-sm-table-cell">
+                            <% if(typeof(listProd[i].id_category) !='undefined' ) { %>
+                                <%= listProd[i].id_category.name %>
+                                    <% } %>
+                        </td>
+                        <th class="text-center" style="font-weight: 400;">
+                            <%= listProd[i].price %> VNĐ
+                        </th>
 
-                        <button type="button" class="btn btn-success p-2" data-bs-toggle="modal"
-                            data-bs-target="#suaSPModal<%= listProd[i]._id %>" style="width: 48px; height: 48px;">
-                            <i class="bi bi-pencil " style="font-size: 1.5rem;"></i>
+                        <th class="text-center" style="font-weight: 400;">
+                            <%= listProd[i].quantity %>
+                        </th>
+                        <th class="text-center d-none d-sm-table-cell" style="font-weight: 400;">
+                            <%= listProd[i].quantity %>
+                        </th>
+                        <!-- Chức năng sửa -->
+                        <td class="text-center">
 
-                        </button>
+                            <button type="button" class="btn btn-success p-2" data-bs-toggle="modal"
+                                data-bs-target="#suaSPModal<%= listProd[i]._id %>" style="width: 48px; height: 48px;">
+                                <i class="bi bi-pencil " style="font-size: 1.5rem;"></i>
 
-                        <div class="modal fade" id="suaSPModal<%= listProd[i]._id %>" tabindex="-1"
-                            aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Sửa sản phẩm</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form action="" method="post" enctype="multipart/form-data">
-                                            <input type="hidden" name="idProduct" value="<%= listProd[i]._id %>">
-                                            <div class="input-group mb-3">
-                                                <label class="input-group-text"
-                                                    for="inputGroupFile01">Ảnh</label>
-                                                <input name="uimage-product" type="file" class="form-control" value="<%= listProd[i].image %>" >
-                                            </div>
+                            </button>
 
-                                            <div class="mb-4">
-                                                <label for="exampleInputEmail1" class="form-label">Tên</label>
-                                                <input type="text" class="form-control" name="name"
-                                                    value="<%= listProd[i].name %>">
-                                            </div>
+                            <div class="modal fade" id="suaSPModal<%= listProd[i]._id %>" tabindex="-1"
+                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Sửa sản phẩm</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="" method="post" enctype="multipart/form-data">
+                                                <input type="hidden" name="idProduct" value="<%= listProd[i]._id %>">
+                                                <div class="input-group mb-3">
+                                                    <label class="input-group-text" for="inputGroupFile01">Ảnh</label>
+                                                    <input name="uimage-product" type="file" class="form-control"
+                                                        value="<%= listProd[i].image %>">
+                                                </div>
 
-                                            <div class="mb-4">
-                                                <label for="exampleInputEmail1" class="form-label">Lọai</label>
-                                                <select name="category">
-                                                    <% listCate.forEach( (row)=> {
+                                                <div class="mb-4">
+                                                    <label for="exampleInputEmail1" class="form-label">Tên</label>
+                                                    <input type="text" class="form-control" name="name"
+                                                        value="<%= listProd[i].name %>">
+                                                </div>
+
+                                                <div class="mb-4">
+                                                    <label for="exampleInputEmail1" class="form-label">Lọai</label>
+                                                    <select name="category">
+                                                        <% listCate.forEach( (row)=> {
                                                             let selected = '';
                                                             if(String(row._id) == listProd[i].id_category._id){
-                                                                selected = ' selected ';
+                                                            selected = ' selected ';
                                                             }
-                                                        %>
-                                                        <option <%= selected %> value="<%= row._id %>">
-                                                                <%= row.name %>
-                                                        </option>
-                                                        <% }) %>
-                                                </select>
-                                            </div>
+                                                            %>
+                                                            <option <%=selected %> value="<%= row._id %>">
+                                                                    <%= row.name %>
+                                                            </option>
+                                                            <% }) %>
+                                                    </select>
+                                                </div>
 
-                                            <div class="mb-3  mt-3">
-                                                <label for="exampleInputEmail1" class="form-label">Giá</label>
-                                                <input type="number" class="form-control" id="inputPrice" min="0"
-                                                    name="price" value="<%= listProd[i].price %>">
-                                            </div>
+                                                <div class="mb-3  mt-3">
+                                                    <label for="exampleInputEmail1" class="form-label">Giá</label>
+                                                    <input type="number" class="form-control" id="inputPrice" min="0"
+                                                        name="price" value="<%= listProd[i].price %>">
+                                                </div>
 
-                                            <div class="mb-3  mt-3">
-                                                <label for="exampleInputEmail1" class="form-label">Số lượng</label>
-                                                <input type="number" class="form-control" id="inputSoLuong" min="0"
-                                                    name="quantity" value="<%= listProd[i].quantity %>">
-                                            </div>
+                                                <div class="mb-3  mt-3">
+                                                    <label for="exampleInputEmail1" class="form-label">Số lượng</label>
+                                                    <input type="number" class="form-control" id="inputSoLuong" min="0"
+                                                        name="quantity" value="<%= listProd[i].quantity %>">
+                                                </div>
 
-                                            <div class="mb-3">
-                                                <label for="exampleInputEmail1" class="form-label">Nội
-                                                    dung</label>
-                                                <textarea class="form-control" name="description" id="inputTen"
-                                                    cols="30" rows="5"><%= listProd[i].detail %></textarea>
-                                            </div>
+                                                <div class="mb-3">
+                                                    <label for="exampleInputEmail1" class="form-label">Nội
+                                                        dung</label>
+                                                    <textarea class="form-control" name="description" id="inputTen"
+                                                        cols="30" rows="5"><%= listProd[i].detail %></textarea>
+                                                </div>
 
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary">Save changes</button>
-                                    </div>
-                                </form>
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-                    <!-- Chức năng xóa -->
-                    <td class="text-center">
-                        <button type="button" class="btn btn-danger p-2" data-bs-toggle="modal"
-                            data-bs-target="#xoaSP<%= listProd[i]._id%>" style="width: 48px; height: 48px;">
-                            <i class="bi bi-trash3" style="font-size: 1.5rem; text-align: center;"></i>
-                        </button>
-
-                        <div class="modal fade" id="xoaSP<%= listProd[i]._id%>" tabindex="-1"
-                            aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Xóa sản phẩm</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <p>Bạn có chắc muốn xóa sản phẩm này ?</p>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">Close</button>
-                                        <a class="btn btn-primary" href="/product/delete/<%= listProd[i]._id%>">Xóa</a>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </td>
-                </tr>
-                <% } %>
-        </tbody>
-    </table>
+                        </td>
+                        <!-- Chức năng xóa -->
+                        <td class="text-center">
+                            <button type="button" class="btn btn-danger p-2" data-bs-toggle="modal"
+                                data-bs-target="#xoaSP<%= listProd[i]._id%>" style="width: 48px; height: 48px;">
+                                <i class="bi bi-trash3" style="font-size: 1.5rem; text-align: center;"></i>
+                            </button>
 
-</div>
+                            <div class="modal fade" id="xoaSP<%= listProd[i]._id%>" tabindex="-1"
+                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Xóa sản phẩm</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Bạn có chắc muốn xóa sản phẩm này ?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close</button>
+                                            <a class="btn btn-primary"
+                                                href="/product/delete/<%= listProd[i]._id%>">Xóa</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <% } %>
+            </tbody>
+        </table>
 
-<%- include('../inc/footer.ejs') %>
+    </div>
+
+    <%- include('../inc/footer.ejs') %>

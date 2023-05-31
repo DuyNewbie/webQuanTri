@@ -7,6 +7,10 @@ var upLoader = multer({dest : './tmp'});
 
 
 router.get('/', productCtrl.list);
+router.get('/filter/:idtl',  productCtrl.list)
+router.get('/sort/:gia', productCtrl.list)
+router.get('/search', productCtrl.list)
+
 router.post('/' , upLoader.single("uimage-product") , productCtrl.updateP);
 router.post('/' , productCtrl.updateP);
 
