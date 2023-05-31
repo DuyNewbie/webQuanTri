@@ -1,6 +1,8 @@
 const { log } = require('console');
 var myDB = require('../models/products.model')
+var DbCmt = require('../models/users.model')
 var fs = require('fs');
+const { KeyObject } = require('crypto');
 
 exports.list = async (req, res, next) => {
     let title = 'Danh Sách Sản Phẩm';
@@ -86,22 +88,12 @@ exports.delete = async (req, res, next) => {
     try {
         await myDB.productModel.findByIdAndDelete(idSP, objSP)
         msg = "Xóa thể loại thành công"
-        res.redirect('/product/')
+        res.redirect('/product')
     } catch (error) {
         msg = "Lỗi ghi cơ sở dữ liệu" + error.message;
     }
-    res.render('products/list', { title: tieuDe, msg: msg })
+    res.render('products/list', { msg: msg })
 }
-
-exports.detail = async (req, res, next) => {
-    let tieuDe = 'Chi tiết sản phẩm';
-    let msg = '';
-    let idSP = req.params.idProU;
-    let data = await myDB.productModel.findById(idSP).populate('id_category');
-
-    res.render('products/detail', { title: tieuDe, data: data, msg: msg })
-}
-
 
 exports.updateP = async (req,res,next) => {
     let msg = '';
@@ -131,4 +123,17 @@ exports.updateP = async (req,res,next) => {
     }
 
     res.render('products/list', {msg});
+}
+
+exports.detail = async (req, res, next) => {
+    let tieuDe = 'Chi tiết sản phẩm';
+    let msg = '';
+    let idSP = req.params.idProU;
+    let data = await myDB.productModel.findById(idSP).populate('id_category');
+    console.log("id "+idSP);
+    let listCmt = await myDB.commentModel.find({id_product : String(req.params.idProU)}).populate('id_user')
+    // let listCmt = await myDB.commentModel.find({cmt_content:"ngon ghê"}).populate('id_user')
+    console.log("đây là list cmt "+ listCmt.length);
+
+    res.render('products/detail', { title: tieuDe, data: data, msg: msg, listCmt: listCmt })
 }

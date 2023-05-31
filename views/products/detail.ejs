@@ -12,17 +12,23 @@
                     </div>
                     <div class="col-md-5 col-sm-12">
                         <h4 class="pt-5">Tên sản phẩm: <%= data.name %></h4><hr>
-                        <p class="">Thể loại: <%= data.id_category.name %></p>
-                        <p class="">Giá: <%= data.price %> VNĐ</p>
-                        <p class="">Số lượng: <%= data.quantity %></p><hr>
-                        <p class="">Mô tả: <%= data.detail %>.  </p>
-
-
+                        <p class=""><b>Thể loại:</b> <%= data.id_category.name %></p>
+                        <p class=""><b>Giá:</b> <%= data.price %> VNĐ</p>
+                        <p class=""><b>Số lượng:</b> <%= data.quantity %></p><hr>
+                        <p class=""><b>Mô tả:</b> <%= data.detail %>.  </p>
                     </div>
                 </div>
             </div>
             <div class="col-md-4 col-sm-12 card">
-                
+                <h4 class="pt-5 text-center">Bình luận của khách hàng</h4>
+                <div class="comment">
+                    <% listCmt.forEach( (row ) => { %>
+                        <div style="border-radius: 10px; border-width: 10px; background-color: blueviolet;">
+                            <p>Người dùng: <%= row.id_user.fullname %> </p>
+                            <p>Nội dung cmt: <%= row.cmt_content %> </p>
+                        </div>
+                    <% }); %>
+                </div>
             </div>
         </div>
     </div>

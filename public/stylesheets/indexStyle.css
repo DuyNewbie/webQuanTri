@@ -1,17 +1,15 @@
-
-
-.logo{
+.logo {
     max-width: 60px;
     max-height: 60px;
     margin: 7px 7px 7px 0px;
     margin-right: 20px;
 }
 
-.colerHeader{
+.colerHeader {
     background-color: #38232860;
 }
 
-body{
+body {
     background-color: #e3e3e3;
 }
 
@@ -39,34 +37,39 @@ body{
 }
 
 .img-detail {
-    margin-top: 13px; 
-    margin-right: 13px; 
-    margin-bottom: 13px; 
+    margin-top: 13px;
+    margin-right: 13px;
+    margin-bottom: 13px;
     border-radius: 10px;
-    max-width: 500px;
+    max-width: 500px;   
     max-height: 500px;
-    
 }
 
-.content{
+.comment {
+    height: 470px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.content {
     background-color: #3e292e30;
 }
 
-footer{
+footer {
     background-color: #382328f1;
     color: #e3e3e3;
 }
 
-.bottomMenu li a{
+.bottomMenu li a {
     text-decoration: none;
     color: #ffffffb1;
 }
 
 /* Table */
-.borderTable{
+.borderTable {
     border-color: #382328f1;
 }
 
-.bg-thead{
+.bg-thead {
     background-color: #38232860;
 }

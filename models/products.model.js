@@ -25,4 +25,16 @@ const productSchema = new DB.mongoose.Schema(
 )
 let productModel = DB.mongoose.model('productModel' , productSchema);
 
-module.exports = {categoryModel , productModel}
+const commentSchema = new DB.mongoose.Schema(
+    {
+        id_user : {type : DB.mongoose.Schema.Types.ObjectId , ref : 'userModel'},
+        id_product : {type : DB.mongoose.Schema.Types.ObjectId , ref : 'productModel'},
+        cmt_content : {type : String , require : false},
+    },
+    {
+        collection : 'Tb_Comment'
+    }
+)
+let commentModel = DB.mongoose.model('commentModel' , commentSchema);
+
+module.exports = {categoryModel , productModel, commentModel}
