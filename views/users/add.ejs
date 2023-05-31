@@ -18,55 +18,48 @@
                         <div class="col-1"></div>
                         <div class="col-10">
                             <div class=" input-group boderBtn rounded-2">
-                                <input name="image-product" type="file" class="form-control" required>
+                                <input name="avata-user" type="file" class="form-control" required>
                             </div>
                         </div>
                         <div class="col-1"></div>
-                        <!--category -->
-                        <div class="col-1"></div>
-                        <div class="col-10 mt-2">
-                            <select name="category" class="form-select boderBtn rounded-2"
-                                aria-label="Default select example">
-                                <option selected>Chọn thể loại</option>
-                                <% listTL.forEach( (row)=> { %>
-                                    <option value="<%= row._id %>">
-                                        <%= row.name %>
-                                    </option>
-                                    <% }); %>
-                            </select>
-                        </div>
-                        <div class="col-1"></div>
-                        <!--name -->
+                        <!-- tài khoản -->
                         <div class="col-1"></div>
                         <div class="col-10 form-floating mt-2">
-                            <input type="text" class="form-control boderBtn rounded-2" id="floatingInput" name="name"
+                            <input type="text" class="form-control boderBtn rounded-2" id="floatingInput" name="taikhoan"
                                 placeholder="Password" required>
-                            <label class="ms-3" for="floatingInput">Tên sản phẩm</label>
+                            <label class="ms-3" for="floatingInput">Nhập tài khoản</label>
                         </div>
                         <div class="col-1"></div>
-                        <!--price -->
+                        <!-- full name -->
                         <div class="col-1"></div>
                         <div class="col-10 form-floating mt-2">
-                            <input type="number" class="form-control boderBtn rounded-2" id="floatingInput" name="price"
+                            <input type="text" class="form-control boderBtn rounded-2" id="floatingInput" name="hoten"
                                 placeholder="Password" required>
-                            <label class="ms-3" for="floatingInput">Giá sản phẩm</label>
+                            <label class="ms-3" for="floatingInput">Nhập họ và tên</label>
                         </div>
                         <div class="col-1"></div>
-                        <!--số lượng -->
+                        <!-- số điện thoại -->
                         <div class="col-1"></div>
                         <div class="col-10 form-floating mt-2">
-                            <input type="number" class="form-control boderBtn rounded-2" id="floatingInput"
-                                name="quantity" placeholder="Password" required>
-                            <label class="ms-3" for="floatingInput">Số lượng sản phẩm</label>
+                            <input type="text" class="form-control boderBtn rounded-2" id="floatingInput" name="sdt"
+                                placeholder="Password" required>
+                            <label class="ms-3" for="floatingInput">Nhập số điện thoại</label>
                         </div>
                         <div class="col-1"></div>
-                        <!--chi tiết -->
+                        <!--mật khẩu -->
                         <div class="col-1"></div>
                         <div class="col-10 form-floating mt-2">
-                            <textarea name="detail" class="form-control boderBtn rounded-2"
-                                placeholder="Nhập mô tả sản phẩm" id="floatingTextarea2" style="height: 100px"
-                                required></textarea>
-                            <label class="ms-3" for="floatingTextarea2">Mô tả sản phẩm</label>
+                            <input type="password" class="form-control boderBtn rounded-2" id="floatingInput" name="matkhau" 
+                            placeholder="Password" required>
+                            <label class="ms-3" for="floatingInput">Nhập mật khẩu</label>
+                        </div>
+                        <div class="col-1"></div>
+                        <!-- nhập lại mật khẩu -->
+                        <div class="col-1"></div>
+                        <div class="col-10 form-floating mt-2">
+                            <input type="password" class="form-control boderBtn rounded-2" id="floatingInput" name="matkhauRe" 
+                            placeholder="Password" required>
+                            <label class="ms-3" for="floatingInput">Nhập lại mật khẩu</label>
                         </div>
                         <div class="col-1"></div>
                     </div>

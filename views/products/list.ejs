@@ -41,12 +41,12 @@
         <thead class="borderTable bg-thead">
             <tr>
                 <th scope="col" class="col-1 text-center">STT</th>
-                <th scope="col" class="col-2 d-none d-md-table-cell text-center">Ảnh</th>
+                <th scope="col" class="col-1 d-none d-md-table-cell text-center">Ảnh</th>
                 <th scope="col" class="col-3 text-center">Tên</th>
                 <th scope="col" class="col-2 d-none d-sm-table-cell text-center">Loại</th>
                 <th scope="col" class="col-1 text-center">Giá</th>
                 <th scope="col" class="col-1 text-center">Số lượng</th>
-
+                <th scope="col" class="col-1 d-none d-sm-table-cell text-center">Bình luận</th>
                 <th scope="col" class="col-1 text-center">Sửa</th>
                 <th scope="col" class="col-1 text-center">Xóa</th>
             </tr>
@@ -60,7 +60,7 @@
                     <td class="text-center d-none d-md-table-cell"><img src="<%= listProd[i].image %>" alt="" width="80px" height="80px">
                     </td>
                     <td class="text-center">
-                        <a href="/sp/chi-tiet/<%= listProd[i]._id %>"><%= listProd[i].name %></a>
+                        <a href="/product/detail/<%= listProd[i]._id %>" style="text-decoration: none; color: black;"><%= listProd[i].name %></a>
                         
                     </td>
                     <td class="text-center d-none d-sm-table-cell">
@@ -68,11 +68,14 @@
                             <%= listProd[i].id_category.name %>
                                 <% } %>
                     </td>
-                    <th class="text-center">
-                        <%= listProd[i].price %>
+                    <th class="text-center" style="font-weight: 400;">
+                        <%= listProd[i].price %> VNĐ
                     </th>
 
-                    <th class="text-center">
+                    <th class="text-center" style="font-weight: 400;">
+                        <%= listProd[i].quantity %>
+                    </th>
+                    <th class="text-center d-none d-sm-table-cell" style="font-weight: 400;">
                         <%= listProd[i].quantity %>
                     </th>
                     <!-- Chức năng sửa -->

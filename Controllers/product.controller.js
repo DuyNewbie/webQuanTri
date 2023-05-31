@@ -46,22 +46,23 @@ exports.add = async (req, res, next) => {
     let msg = '';
     let listTL = await myDB.categoryModel.find()
     if (req.method == "POST") {
+
+        let objSP = new myDB.productModel();
+        objSP.name = req.body.name;
+        objSP.price = req.body.price;
+        objSP.detail = req.body.detail;
+        objSP.id_category = req.body.category;
+        objSP.quantity = req.body.quantity
         try {
-            let objSP = new myDB.productModel();
-            objSP.name = req.body.name;
-            objSP.price = req.body.price;
-            objSP.detail = req.body.detail;
+            if(req.file){
+                fs.renameSync(req.file.path, './public/imgProduct/'+req.file.originalname);
+                objSP.image = '/imgProduct/' + req.file.originalname;
+            }
+        } catch (error) {
+            console.log(error);
+        }
 
-
-            fs.renameSync(req.file.path, './public/imgProduct/' + req.file.originalname);
-            // dùng url file để ghi vào csdl
-            objSP.image = '/imgProduct/' + req.file.originalname
-
-
-            objSP.id_category = req.body.category;
-            objSP.quantity = req.body.quantity
-
-
+        try {
             await objSP.save();
             msg = "Thêm sản phẩm thành công"
             res.redirect('/product')
@@ -74,5 +75,31 @@ exports.add = async (req, res, next) => {
         title: title, msg: msg, 
         listTL: listTL 
     });
+}
+
+exports.delete = async (req, res, next) => {
+    let msg = '';
+    let idSP = req.params.idProU;
+
+    let objSP = new myDB.productModel();
+    objSP._id = idSP;
+
+    try {
+        await myDB.productModel.findByIdAndDelete(idSP, objSP)
+        msg = "Xóa thể loại thành công"
+        res.redirect('/product/')
+    } catch (error) {
+        msg = "Lỗi ghi cơ sở dữ liệu" + error.message;
+    }
+    res.render('products/list', { title: tieuDe, msg: msg })
+}
+
+exports.detail = async (req, res, next) => {
+    let tieuDe = 'Chi tiết sản phẩm';
+    let msg = '';
+    let idSP = req.params.idProU;
+    let data = await myDB.productModel.findById(idSP).populate('id_category');
+
+    res.render('products/detail', { title: tieuDe, data: data, msg: msg })
 }
 
