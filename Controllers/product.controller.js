@@ -48,23 +48,23 @@ exports.add = async (req, res, next) => {
     let listTL = await myDB.categoryModel.find()
     if (req.method == "POST") {
 
-        let objSP = new myDB.productModel();
-        objSP.name = req.body.name;
-        objSP.price = req.body.price;
-        objSP.detail = req.body.detail;
-        objSP.id_category = req.body.category;
-        objSP.quantity = req.body.quantity
+        let objProduct = new myDB.productModel();
+        objProduct.name = req.body.name;
+        objProduct.price = req.body.price;
+        objProduct.detail = req.body.detail;
+        objProduct.id_category = req.body.category;
+        objProduct.quantity = req.body.quantity
         try {
             if(req.file){
                 fs.renameSync(req.file.path, './public/imgProduct/'+req.file.originalname);
-                objSP.image = '/imgProduct/' + req.file.originalname;
+                objProduct.image = '/imgProduct/' + req.file.originalname;
             }
         } catch (error) {
             console.log(error);
         }
 
         try {
-            await objSP.save();
+            await objProduct.save();
             msg = "Thêm sản phẩm thành công"
             res.redirect('/product')
         } catch (error) {
@@ -80,13 +80,13 @@ exports.add = async (req, res, next) => {
 
 exports.delete = async (req, res, next) => {
     let msg = '';
-    let idSP = req.params.idProU;
+    let idProduct = req.params.idProU;
 
-    let objSP = new myDB.productModel();
-    objSP._id = idSP;
+    let objProduct = new myDB.productModel();
+    objProduct._id = idProduct;
 
     try {
-        await myDB.productModel.findByIdAndDelete(idSP, objSP)
+        await myDB.productModel.findByIdAndDelete(idProduct, objProduct)
         msg = "Xóa thể loại thành công"
         res.redirect('/product')
     } catch (error) {
@@ -97,13 +97,15 @@ exports.delete = async (req, res, next) => {
 
 exports.updateP = async (req,res,next) => {
     let msg = '';
-    
+    console.log("update dang chay")
     if (req.method == 'POST') {
         let idProduct = req.body.idProduct;
         let objProdut = await myDB.productModel.findById(idProduct);
 
-        fs.renameSync(req.file.path, './public/imgProduct/' + req.file.originalname);
-        objProdut.image = '/imgProduct/' + req.file.originalname;
+        if(!String(req.file) == 'undefined'){
+            fs.renameSync(req.file.path, './public/imgProduct/' + req.file.originalname);
+            objProdut.image = '/imgProduct/' + req.file.originalname;
+        }
         
         objProdut.name = req.body.name;
         objProdut.id_category = req.body.category;
@@ -113,11 +115,11 @@ exports.updateP = async (req,res,next) => {
        
         try{
             await myDB.productModel.findByIdAndUpdate(idProduct, objProdut);
-            msg = "Sửa thể tài khoản thành công"
+            msg = "Sửa sản phẩm thành công"
             res.redirect('/product');
         }catch(error){
             console.log(error)
-            msg = "Sửa thể tài khoản không thành công"
+            msg = "Sửa sản phẩm không thành công"
             res.redirect('/product');
         }
     }

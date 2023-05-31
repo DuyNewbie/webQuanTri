@@ -65,16 +65,15 @@
                                     <form action="" method="post">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Sửa thể loại sản
-                                                    phẩm</h1>
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Sửa thể loại sản phẩm</h1>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <input type="hidden" name="idLoai" value="<%= listCate[i]._id %>">
+                                                <input type="hidden" name="idCate" value="<%= listCate[i]._id %>">
                                                 <div class=" form-floating">
                                                     <input type="text" class="form-control boderBtn rounded-2"
-                                                        value="<%= listCate[i].name %>" id="floatingInput" name="name"
+                                                        value="<%= listCate[i].name %>" name="name"
                                                         placeholder="Password" required>
                                                     <label class="ms-3" for="floatingInput">Tên thể loại</label>
                                                 </div>
@@ -82,9 +81,7 @@
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary"
                                                     data-bs-dismiss="modal">Hủy</button>
-
-                                                <a class="btn btn-primary"
-                                                href="/category/edit/<%= listCate[i]._id %>">Sửa</a>
+                                                <button class="btn btn-primary">Sửa</button>
                                             </div>
                                         </div>
                                     </form>

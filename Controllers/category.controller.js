@@ -25,34 +25,29 @@ exports.add = async (req, res, next) => {
             msg = "Lỗi ghi cơ sở dữ liệu" + error.message;
         }
     }
-
     res.render('categorys/add', { title: title, msg: msg, })
 }
 
-exports.edit = async (req, res, next) => {
-    // let idTL = req.params.idCate;
-    // console.log("id"+idTL);
-    
-    // if (req.method == "POST") {
+exports.update = async (req, res, next) => {
 
-    //     let objTL = new myDB.categoryModel();
-    //     objTL.name = req.body.name;
-    //     objTL._id = idTL;
+    if (req.method == "POST") {
+        let idCategory = req.body.idCate;
 
-    //     try {
-    //         await myDB.categoryModel.findByIdAndUpdate(idTL, objTL)
-    //         res.redirect('/category')
-    //     } catch (error) {
-    //         msg = "Lỗi ghi cơ sở dữ liệu" + error.message;
-    //     }
-    // }
+        let objCate = await myDB.categoryModel.findById(idCategory);
+        objCate.name = req.body.name;
+
+        try {
+            await myDB.categoryModel.findByIdAndUpdate(idCategory, objCate);
+            res.redirect('/category')
+        } catch (error) {
+            msg = "Lỗi ghi cơ sở dữ liệu" + error.message;
+        }
+    }
     res.render('categorys/list')
 }
 
 exports.delete = async (req, res, next) => {
     let id = req.params.idCate
-    let objTL = new myDB.categoryModel();
-    objTL._id = id
 
     try {
         await myDB.categoryModel.findByIdAndDelete(id)

@@ -44,8 +44,8 @@
                 <th scope="col" class="col-1 text-center">Avata</th>
                 <th scope="col" class="col-3 text-center">Họ và Tên</th>
                 <th scope="col" class="col-2 d-none d-sm-table-cell text-center">Số điện thoại</th>
-                <th scope="col" class="col-1 d-none d-sm-table-cell text-center">Email</th>
-                <th scope="col" class="col-1 d-none d-sm-table-cell text-center">Địa chỉ</th>
+                <th scope="col" class="col-1 d-none d-md-table-cell text-center">Email</th>
+                <th scope="col" class="col-1 d-none d-md-table-cell text-center">Địa chỉ</th>
                 <th scope="col" class="col-1 text-center">Vai trò</th>
                 <th scope="col" class="col-1 text-center">Sửa</th>
                 <th scope="col" class="col-1 text-center">Xóa</th>
@@ -66,10 +66,10 @@
                         <%= listUser[i].phone %>
                     </th>
 
-                    <th class="text-center d-none d-sm-table-cell">
+                    <th class="text-center d-none d-md-table-cell">
                         <%= listUser[i].email %>
                     </th>
-                    <th class="text-center d-none d-sm-table-cell">
+                    <th class="text-center d-none d-md-table-cell">
                         <%= listUser[i].address %>
                     </th>
                     <th class="text-center">
@@ -104,21 +104,26 @@
 
                                             <div class="mb-4">
                                                 <label for="exampleInputEmail1" class="form-label">Tên</label>
-                                                <input type="text" class="form-control" name="name"
-                                                    value="<%= listUser[i].name %>">
+                                                <input type="text" class="form-control" name="fullname"
+                                                    value="<%= listUser[i].fullname %>">
                                             </div>
 
                                             <div class="mb-3  mt-3">
-                                                <label for="exampleInputEmail1" class="form-label">Giá</label>
-                                                <input type="number" class="form-control" id="inputTen" min="0"
-                                                    name="price" value="<%= listUser[i].price %>">
+                                                <label for="exampleInputEmail1" class="form-label">Số điện thoại</label>
+                                                <input type="number" class="form-control" min="0"
+                                                    name="phone" value="<%= listUser[i].phone %>">
                                             </div>
 
-                                            <div class="mb-3">
-                                                <label for="exampleInputEmail1" class="form-label">Nội
-                                                    dung</label>
-                                                <textarea class="form-control" name="description" id="inputTen"
-                                                    cols="30" rows="5"><%= listUser[i].description %></textarea>
+                                            <div class="mb-4">
+                                                <label for="exampleInputEmail1" class="form-label">Email</label>
+                                                <input type="email" class="form-control" name="email"
+                                                    value="<%= listUser[i].email %>">
+                                            </div>
+
+                                            <div class="mb-4">
+                                                <label for="exampleInputEmail1" class="form-label">Địa chỉ</label>
+                                                <input type="text" class="form-control" name="address"
+                                                    value="<%= listUser[i].address %>">
                                             </div>
 
                                     </div>
