@@ -14,25 +14,44 @@ exports.list = async (req , res , next) => {
 
 exports.loginApp = async (req , res , next) => {
 
-    // let userName = req.query.UserName;
-    // let passWord = req.quiry.PassWord;
-
+    let msg = ""
     let checkLogin = false;
 
-    // try{
-    //     let objUser = await mdUser.userModel.find({username : userName});
+    if (req.method == 'POST') {
 
-    //     if(objUser.passWord == passWord){
-    //         checkLogin = true;
-    //     }
+        try{
+            let userName = req.query.UserName;
+            let passWord = req.query.PassWord;
 
-    // }catch(err){
-    //     console.log(err);
-    // }
+            try{
+                let objUser = await mdUser.userModel.findOne({username : userName});
+
+                if(objUser){
+                    if(objUser.password == passWord){
+                        checkLogin = true;
+                        msg = "Login thanh cong"
+                    }else{
+                        msg = "sat Password"
+                    }
+                }else{
+                    msg = "Sai User"
+                }
+    
+            }catch(err){
+                console.log(err);
+            }
+
+        }catch(err){
+            console.log(err);
+            console.log("Error : Không nhân được user or pass");
+        }
+
+
+    }
 
     res.status(200).json(
         {
-            msg : "Value Login",
+            msg : msg,
             checkLogin : checkLogin
         }
     )
