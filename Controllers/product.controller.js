@@ -102,10 +102,16 @@ exports.updateP = async (req,res,next) => {
         let idProduct = req.body.idProduct;
         let objProdut = await myDB.productModel.findById(idProduct);
 
-        if(!String(req.file) == 'undefined'){
-            fs.renameSync(req.file.path, './public/imgProduct/' + req.file.originalname);
-            objProdut.image = '/imgProduct/' + req.file.originalname;
+
+        try{
+            if(req.file){
+                fs.renameSync(req.file.path, './public/imgProduct/' + req.file.originalname);
+                objProdut.image = '/imgProduct/' + req.file.originalname;
+            }
+        }catch(error){
+
         }
+        
         
         objProdut.name = req.body.name;
         objProdut.id_category = req.body.category;

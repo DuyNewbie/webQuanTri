@@ -12,7 +12,6 @@ router.get('/sort/:gia', productCtrl.list)
 router.get('/search', productCtrl.list)
 
 router.post('/' , upLoader.single("uimage-product") , productCtrl.updateP);
-router.post('/' , productCtrl.updateP);
 
 router.get('/add', productCtrl.add);
 router.post('/add',upLoader.single("image-product") , productCtrl.add);
