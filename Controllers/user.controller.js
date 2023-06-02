@@ -48,7 +48,7 @@ exports.add = async (req, res, next) => {
         objUser.password = req.body.matkhau;
         objUser.fullname = req.body.hoten;
         objUser.phone = req.body.sdt;
-        objUser.role = "admin"
+        objUser.role = "user"
         try {
             if(req.file){
                 fs.renameSync(req.file.path, './public/avata/'+req.file.originalname);
