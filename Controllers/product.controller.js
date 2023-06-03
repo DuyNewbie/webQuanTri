@@ -1,8 +1,7 @@
 const { log } = require('console');
 var myDB = require('../models/products.model')
-var DbCmt = require('../models/users.model')
+var mongoose = require('mongoose')
 var fs = require('fs');
-const { KeyObject } = require('crypto');
 
 exports.list = async (req, res, next) => {
     let title = 'Danh Sách Sản Phẩm';
@@ -16,7 +15,7 @@ exports.list = async (req, res, next) => {
     // chức năng lọc
     if (req.params.idtl != '0') {
         if (typeof (req.params.idtl) != 'undefined') {
-            dieuKienLoc = { id_theloai: String(req.params.idtl) }
+            dieuKienLoc = { id_category: String(req.params.idtl) }
             console.log("đã lọc: " + req.params.idtl);
         }
     }
@@ -32,13 +31,13 @@ exports.list = async (req, res, next) => {
     let listProd = await myDB.productModel.find(dieuKienLoc).sort(dieuKienSapXep).populate('id_category')
     let listCate = await myDB.categoryModel.find();
 
-    res.render('products/list', { 
-        title: title, msg: msg, 
-        listProd: listProd, 
-        listCate: listCate, 
-        idTheLoai: req.params.idtl, 
-        name: req.query.name, 
-        typeSort: req.params.gia 
+    res.render('products/list', {
+        title: title, msg: msg,
+        listProd: listProd,
+        listCate: listCate,
+        idTheLoai: req.params.idtl,
+        name: req.query.name,
+        typeSort: req.params.gia
     })
 }
 
@@ -55,8 +54,8 @@ exports.add = async (req, res, next) => {
         objProduct.id_category = req.body.category;
         objProduct.quantity = req.body.quantity
         try {
-            if(req.file){
-                fs.renameSync(req.file.path, './public/imgProduct/'+req.file.originalname);
+            if (req.file) {
+                fs.renameSync(req.file.path, './public/imgProduct/' + req.file.originalname);
                 objProduct.image = '/imgProduct/' + req.file.originalname;
             }
         } catch (error) {
@@ -72,9 +71,9 @@ exports.add = async (req, res, next) => {
         }
     }
 
-    res.render('products/add', { 
-        title: title, msg: msg, 
-        listTL: listTL 
+    res.render('products/add', {
+        title: title, msg: msg,
+        listTL: listTL
     });
 }
 
@@ -95,7 +94,7 @@ exports.delete = async (req, res, next) => {
     res.render('products/list', { msg: msg })
 }
 
-exports.updateP = async (req,res,next) => {
+exports.updateP = async (req, res, next) => {
     let msg = '';
     console.log("update dang chay")
     if (req.method == 'POST') {
@@ -103,45 +102,43 @@ exports.updateP = async (req,res,next) => {
         let objProdut = await myDB.productModel.findById(idProduct);
 
 
-        try{
-            if(req.file){
+        try {
+            if (req.file) {
                 fs.renameSync(req.file.path, './public/imgProduct/' + req.file.originalname);
                 objProdut.image = '/imgProduct/' + req.file.originalname;
             }
-        }catch(error){
+        } catch (error) {
 
         }
-        
-        
+
+
         objProdut.name = req.body.name;
         objProdut.id_category = req.body.category;
         objProdut.price = req.body.price;
         objProdut.quantity = req.body.quantity;
         objProdut.detail = req.body.detail;
-       
-        try{
+
+        try {
             await myDB.productModel.findByIdAndUpdate(idProduct, objProdut);
             msg = "Sửa sản phẩm thành công"
             res.redirect('/product');
-        }catch(error){
+        } catch (error) {
             console.log(error)
             msg = "Sửa sản phẩm không thành công"
             res.redirect('/product');
         }
     }
 
-    res.render('products/list', {msg});
+    res.render('products/list', { msg });
 }
 
 exports.detail = async (req, res, next) => {
     let tieuDe = 'Chi tiết sản phẩm';
     let msg = '';
     let idSP = req.params.idProU;
+    let locCmt = { id_product: idSP }
     let data = await myDB.productModel.findById(idSP).populate('id_category');
-    console.log("id "+idSP);
-    let listCmt = await myDB.commentModel.find({id_product : String(req.params.idProU)}).populate('id_user')
-    // let listCmt = await myDB.commentModel.find({cmt_content:"ngon ghê"}).populate('id_user')
-    console.log("đây là list cmt "+ listCmt.length);
+    let listCmt = await myDB.commentModel.find(locCmt).populate('id_user')
 
     res.render('products/detail', { title: tieuDe, data: data, msg: msg, listCmt: listCmt })
 }
