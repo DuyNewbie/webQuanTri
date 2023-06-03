@@ -6,4 +6,6 @@ router.get('/user' , userApi.list);
 
 router.post('/login-app', userApi.loginApp);
 
+router.post('/create-account' , userApi.createAccount);
+
 module.exports = router;
