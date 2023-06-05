@@ -102,28 +102,33 @@
                                                 <input type="file" class="form-control">
                                             </div>
 
-                                            <div class="mb-4">
-                                                <label for="exampleInputEmail1" class="form-label">Tên</label>
-                                                <input type="text" class="form-control" name="fullname"
-                                                    value="<%= listUser[i].fullname %>">
+
+                                            <div class="form-floating mb-4">
+                                                <input type="text" class="form-control boderBtn rounded-2"
+                                                    value="<%= listUser[i].fullname %>" name="fullname"
+                                                     required>
+                                                <label class="ms-3" for="floatingInput">Tên người dùng</label>
                                             </div>
 
-                                            <div class="mb-3  mt-3">
-                                                <label for="exampleInputEmail1" class="form-label">Số điện thoại</label>
-                                                <input type="number" class="form-control" min="0"
-                                                    name="phone" value="<%= listUser[i].phone %>">
+                                            <div class="form-floating mb-4">
+                                                <input type="number" class="form-control boderBtn rounded-2"
+                                                    value="<%= listUser[i].phone %>" name="phone"
+                                                     required>
+                                                <label class="ms-3" for="floatingInput">Số điện thoại</label>
                                             </div>
 
-                                            <div class="mb-4">
-                                                <label for="exampleInputEmail1" class="form-label">Email</label>
-                                                <input type="email" class="form-control" name="email"
-                                                    value="<%= listUser[i].email %>">
+                                            <div class="form-floating mb-4">
+                                                <input type="email" class="form-control boderBtn rounded-2"
+                                                    value="<%= listUser[i].email %>" name="email"
+                                                     required>
+                                                <label class="ms-3" for="floatingInput">Email</label>
                                             </div>
 
-                                            <div class="mb-4">
-                                                <label for="exampleInputEmail1" class="form-label">Địa chỉ</label>
-                                                <input type="text" class="form-control" name="address"
-                                                    value="<%= listUser[i].address %>">
+                                            <div class="form-floating mb-4">
+                                                <input type="text" class="form-control boderBtn rounded-2"
+                                                    value="<%= listUser[i].address %>" name="address"
+                                                     required>
+                                                <label class="ms-3" for="floatingInput">Địa chỉ</label>
                                             </div>
 
                                     </div>
