@@ -1,6 +1,4 @@
-const { log } = require('console');
 var myDB = require('../models/products.model')
-var mongoose = require('mongoose')
 var fs = require('fs');
 
 exports.list = async (req, res, next) => {
@@ -96,7 +94,7 @@ exports.delete = async (req, res, next) => {
 
 exports.updateP = async (req, res, next) => {
     let msg = '';
-    console.log("update dang chay")
+
     if (req.method == 'POST') {
         let idProduct = req.body.idProduct;
         let objProdut = await myDB.productModel.findById(idProduct);
@@ -111,7 +109,6 @@ exports.updateP = async (req, res, next) => {
 
         }
 
-
         objProdut.name = req.body.name;
         objProdut.id_category = req.body.category;
         objProdut.price = req.body.price;
@@ -125,7 +122,6 @@ exports.updateP = async (req, res, next) => {
         } catch (error) {
             console.log(error)
             msg = "Sửa sản phẩm không thành công"
-            res.redirect('/product');
         }
     }
 

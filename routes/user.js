@@ -7,6 +7,7 @@ var upLoader = multer({dest : './tmp'});
 
 
 router.get('/', userCtrl.list);
+router.post('/',upLoader.single("img-avata")  , userCtrl.update);
 
 router.get('/add', userCtrl.add);
 router.post('/add',upLoader.single("avata-user")  , userCtrl.add);

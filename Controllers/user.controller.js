@@ -72,3 +72,40 @@ exports.add = async (req, res, next) => {
     });
 }
 
+exports.update = async (req , res , next) =>{
+    let msg = '';
+
+    if (req.method == 'POST') {
+        let idUser = req.body.idUser;
+        let objUser = await myDB.userModel.findById(idUser);
+
+        try {
+            if (req.file) {
+                fs.renameSync(req.file.path, './public/avata/' + req.file.originalname);
+                objUser.avata = '/avata/' + req.file.originalname;
+            }
+        } catch (error) {
+
+        }
+
+        objUser.fullname = req.body.fullname;
+        objUser.phone = req.body.phone;
+        objUser.email = req.body.email
+        objUser.address = req.body.address;
+
+
+        try {
+            await myDB.userModel.findByIdAndUpdate(idUser , objUser);
+            msg = "Sửa Tài khoản thành công"
+            res.redirect('/user');
+        } catch (error) {
+            console.log(error)
+            msg = "Sửa tài khoản không thành công"
+        }
+    }
+
+    res.render('users/list' , 
+    {
+        msg : msg
+    });
+}

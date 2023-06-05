@@ -1,6 +1,8 @@
 <%- include('../inc/header.ejs') %>
 
+
 <div class="p-3 p-sm-5">
+
     <h2 class="text-center mb-5"><%= title %></h2>
     <!-- Thanh Dieu khien -->
     <div class="row">
@@ -36,16 +38,16 @@
         </div>
     </div>
 
-
+    
     <table class="table table-bordered table-hover mt-2">
         <thead class="borderTable bg-thead">
             <tr>
                 <th scope="col" class="col-1 text-center">STT</th>
                 <th scope="col" class="col-1 text-center">Avata</th>
-                <th scope="col" class="col-3 text-center">Họ và Tên</th>
+                <th scope="col" class="col-2 text-center">Họ và Tên</th>
                 <th scope="col" class="col-2 d-none d-sm-table-cell text-center">Số điện thoại</th>
                 <th scope="col" class="col-1 d-none d-md-table-cell text-center">Email</th>
-                <th scope="col" class="col-1 d-none d-md-table-cell text-center">Địa chỉ</th>
+                <th scope="col" class="col-2 d-none d-md-table-cell text-center">Địa chỉ</th>
                 <th scope="col" class="col-1 text-center">Vai trò</th>
                 <th scope="col" class="col-1 text-center">Sửa</th>
                 <th scope="col" class="col-1 text-center">Xóa</th>
@@ -94,40 +96,36 @@
                                             aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <form action="" method="post">
-                                            <input type="hidden" name="idSP" value="<%= listUser[i]._id %>">
+                                        <form action="" method="post" enctype="multipart/form-data"> 
+                                            <input type="hidden" name="idUser" value="<%= listUser[i]._id %>">
                                             <div class="input-group mb-3">
                                                 <label class="input-group-text"
                                                     for="inputGroupFile01">Ảnh</label>
-                                                <input type="file" class="form-control">
+                                                <input type="file" class="form-control" name="img-avata">
                                             </div>
 
 
                                             <div class="form-floating mb-4">
                                                 <input type="text" class="form-control boderBtn rounded-2"
-                                                    value="<%= listUser[i].fullname %>" name="fullname"
-                                                     required>
+                                                    value="<%= listUser[i].fullname %>" name="fullname" required>
                                                 <label class="ms-3" for="floatingInput">Tên người dùng</label>
                                             </div>
 
                                             <div class="form-floating mb-4">
                                                 <input type="number" class="form-control boderBtn rounded-2"
-                                                    value="<%= listUser[i].phone %>" name="phone"
-                                                     required>
+                                                    value="<%= listUser[i].phone %>" name="phone" required>
                                                 <label class="ms-3" for="floatingInput">Số điện thoại</label>
                                             </div>
 
                                             <div class="form-floating mb-4">
-                                                <input type="email" class="form-control boderBtn rounded-2"
-                                                    value="<%= listUser[i].email %>" name="email"
-                                                     required>
+                                                <input type="email" class="form-control boderBtn rounded-2" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                                                    value="<%= listUser[i].email %>" name="email" >
                                                 <label class="ms-3" for="floatingInput">Email</label>
                                             </div>
 
                                             <div class="form-floating mb-4">
                                                 <input type="text" class="form-control boderBtn rounded-2"
-                                                    value="<%= listUser[i].address %>" name="address"
-                                                     required>
+                                                    value="<%= listUser[i].address %>" name="address" required>
                                                 <label class="ms-3" for="floatingInput">Địa chỉ</label>
                                             </div>
 
