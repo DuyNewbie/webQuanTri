@@ -12,12 +12,30 @@ exports.list = async (req , res , next) => {
     )
 }
 
-exports.loginApp = async (req , res , next) => {
+exports.getOneUser = async (req , res , next) => {
+    let msg = "";
+    let isComplete = false;
+    let objUser = await mdUser.userModel.findOne({username : UserName})
 
+    if(objUser){
+        msg = "Lấy User thành công";
+        isComplete = true;
+    }else{
+        msg = "Lấy User thất bại";
+    }
+
+    res.status(200).json(
+        {
+            msg : msg,
+            isComplete : isComplete,
+            objUser : objUser
+        }
+    )
+}
+
+exports.loginApp = async (req , res , next) => {
     let msg = ""
     let checkLogin = false;
-
-    if (req.method == 'POST') {
 
         try{
             let userName = req.query.UserName;
@@ -45,7 +63,6 @@ exports.loginApp = async (req , res , next) => {
             console.log(err);
             console.log("Error : Không nhân được user or pass");
         }
-    }
 
     res.status(200).json(
         {
@@ -93,7 +110,6 @@ exports.createAccount = async (req , res , next) => {
         } catch (error) {
             console.log("Ảnh bị lỗi rồi: "+error);
         }
-        
     }
 
     res.status(200).json(
@@ -109,10 +125,56 @@ exports.changePassword = async (req , res ,next) => {
     let isComplete = false;
 
     if(req.method == 'POST'){
-        
+        let objUser = await mdUser.userModel.findOne({username : req.query.UserName});
+
+        if(objUser.password == req.query.PassWord){
+            objUser.password = req.query.NewPassWord;
+            try{
+                await mdUser.userModel.findByIdAndUpdate(objUser._id, objUser);
+                isComplete = true;
+                msg = "Thay đổi mật khẩu thành công";
+            }catch(err){
+                console.log(err);
+                msg = "Lỗi thay đổi mật khẩu (csdl)"
+            }
+        }else{
+            msg = "Mật khẩu cũ không đúng";
+        }
     }
 
+    res.status(200).json(
+        {
+            msg : msg,
+            isComplete : isComplete
+        }
+    )
+}
 
+exports.changeInfo = async (req , res , next ) => {
+    let msg = "";
+    isComplete = false;
+
+    if(req.method == 'POST'){
+        let objUser = await mdUser.userModel.findOne({username : req.query.UserName});
+        
+        if(objUser){
+            objUser.fullname = req.query.FullName;
+            objUser.phone = req.query.Phone;
+            objUser.email = req.query.Email;
+            objUser.address = req.Address;
+
+            try {
+                await mdUser.userModel.findByIdAndUpdate(objUser._id , objUser);
+                msg = "Thay đổi thông tin thành công";
+            } catch (error) {
+                console.log(error);
+                msg = "Thay đổi thông tin không thành công (csld)"
+            }
+        }else{
+            msg = "UserName không tồn tại";
+        }
+    }
+   
     res.status(200).json(
         {
             msg : msg,
