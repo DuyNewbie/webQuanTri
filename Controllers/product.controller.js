@@ -6,6 +6,7 @@ exports.list = async (req, res, next) => {
     let msg = '';
     let dieuKienLoc = null;
     let dieuKienSapXep = null;
+
     //tìm kiếm
     if (req.query.name != '' && String(req.query.name) != 'undefined') {
         dieuKienLoc = { name: { $regex: req.query.name } }
@@ -23,11 +24,11 @@ exports.list = async (req, res, next) => {
             dieuKienSapXep = { price: Number(req.params.gia) }
             console.log("đã sắp xếp: " + req.params.gia);
         }
-
     }
 
-    let listProd = await myDB.productModel.find(dieuKienLoc).sort(dieuKienSapXep).populate('id_category')
+    let listProd = await myDB.productModel.find(dieuKienLoc).skip(req.query.Index).limit(10).sort(dieuKienSapXep).populate('id_category')
     let listCate = await myDB.categoryModel.find();
+    let count = await myDB.productModel.countDocuments();
 
     res.render('products/list', {
         title: title, msg: msg,
@@ -35,7 +36,8 @@ exports.list = async (req, res, next) => {
         listCate: listCate,
         idTheLoai: req.params.idtl,
         name: req.query.name,
-        typeSort: req.params.gia
+        typeSort: req.params.gia,
+        count : count
     })
 }
 
