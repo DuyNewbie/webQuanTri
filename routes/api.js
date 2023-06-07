@@ -12,6 +12,6 @@ router.post('/change-password' , userApi.changePassword);
 router.post('/change-info' , userApi.changeInfo);
 
 //Prodcut
-router.get('product' , productApi.list);
+router.get('/product' , productApi.list);
 
 module.exports = router;
