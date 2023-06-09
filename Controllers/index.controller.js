@@ -7,8 +7,8 @@ exports.index = async (req , res , next) =>{
 
     let soLuongCate = await myDBProduct.categoryModel.find().count()
     let soLuongProd = await myDBProduct.productModel.find().count()
-    let soLuongUser = await myDBUser.userModel.find({role: "user"}).count()
-    let soLuongAdmin = await myDBUser.userModel.find({role: "staff"}).count()
+    let soLuongUser = await myDBUser.userModel.find({role: "User"}).count()
+    let soLuongAdmin = await myDBUser.userModel.find({role: "Staff"}).count()
 
 
     res.render('index', {
