@@ -10,6 +10,7 @@ const userSchema = new DB.mongoose.Schema(
         phone : {type : String , require : false},
         address : {type : String , require : false},
         role : {type : String , require : false},
+        status : {type : Boolean , require : false}
     },
     {
         collection : 'Tb_User'

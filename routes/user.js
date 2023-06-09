@@ -12,5 +12,8 @@ router.post('/',upLoader.single("img-avata")  , userCtrl.update);
 router.get('/add', userCtrl.add);
 router.post('/add',upLoader.single("avata-user")  , userCtrl.add);
 
+router.get('/lock/:id', userCtrl.lock);
+router.get('/un-lock/:id' , userCtrl.unLock);
+
 
 module.exports = router;

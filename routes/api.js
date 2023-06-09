@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+const multer = require('multer');
+var upLoader = multer({dest : './tmp'});
 var userApi = require('../Controllers/api/user.api');
 var productApi = require('../Controllers/api/product.api');
 
@@ -7,7 +9,8 @@ var productApi = require('../Controllers/api/product.api');
 router.get('/user' , userApi.list);
 router.get('/user-one' , userApi.getOneUser);
 router.get('/login-app', userApi.loginApp);
-router.post('/create-account' , userApi.createAccount);
+router.get('/create-account', userApi.createAccount)
+router.post('/create-account' , upLoader.single("img-avata") , userApi.createAccount);
 router.post('/change-password' , userApi.changePassword);
 router.post('/change-info' , userApi.changeInfo);
 

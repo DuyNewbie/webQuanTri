@@ -50,7 +50,7 @@
                 <th scope="col" class="col-2 d-none d-md-table-cell text-center">Địa chỉ</th>
                 <th scope="col" class="col-1 text-center">Vai trò</th>
                 <th scope="col" class="col-1 text-center">Sửa</th>
-                <th scope="col" class="col-1 text-center">Xóa</th>
+                <th scope="col" class="col-1 text-center">Khóa</th>
             </tr>
         </thead>
         <tbody class="borderTable">
@@ -141,37 +141,85 @@
                         </div>
                     </td>
                     <!-- Chức năng xóa -->
-                    <td class="text-center">
-                        <button type="button" class="btn btn-danger p-2" data-bs-toggle="modal"
-                            data-bs-target="#xoaSP<%= listUser[i]._id%>" style="width: 48px; height: 48px;">
-                            <i class="bi bi-trash3" style="font-size: 1.5rem; text-align: center;"></i>
-                        </button>
-
-                        <div class="modal fade" id="xoaSP<%= listUser[i]._id%>" tabindex="-1"
-                            aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Xóa người dùng</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <p>Bạn có chắc muốn xóa người dùng này ?</p>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">Close</button>
-                                        <a class="btn btn-primary" href="/sp/delete/<%= listUser[i]._id%>">Xóa</a>
+                    <% if(listUser[i].status){ %>
+                        <td class="text-center">
+                            <button type="button" class="btn btn-success p-2" data-bs-toggle="modal"
+                                data-bs-target="#lockUser<%= listUser[i]._id%>" style="width: 48px; height: 48px;">
+                                <i class="bi bi-unlock" style="font-size: 1.5rem;"></i>
+                            </button>
+    
+                            <div class="modal fade" id="lockUser<%= listUser[i]._id%>" tabindex="-1"
+                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Khóa người dùng</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Bạn có chắc muốn khóa người dùng này ?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close</button>
+                                            <a class="btn btn-primary" href="/user/lock/<%= listUser[i]._id%>">Khóa</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </td>
+                        </td>
+                    <% }else{ %>
+                        <td class="text-center">
+                            <button type="button" class="btn btn-danger p-2" data-bs-toggle="modal"
+                                data-bs-target="#lockUser<%= listUser[i]._id%>" style="width: 48px; height: 48px;">
+                                <i class="bi bi-lock" style="font-size: 1.5rem;"></i>
+                            </button>
+    
+                            <div class="modal fade" id="lockUser<%= listUser[i]._id%>" tabindex="-1"
+                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Mở khóa người dùng</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Bạn có chắc muốn mở khóa người dùng này ?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close</button>
+                                            <a class="btn btn-primary" href="/user/un-lock/<%=listUser[i]._id%>">Mở khóa</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    <% } %>
+                    
                 </tr>
                 <% } %>
         </tbody>
     </table>
+
+    <% let countV = 1 %>
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+            <% for(let i = 0; i < count ; i += 10){ %>
+                
+                <li class="page-item"><a class="page-link" href="/user?Index=<%= i %>"><%= countV %></a></li>
+                
+            <% 
+                countV++;  
+             } %>
+           
+            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        </ul>
+    </nav>
 
 </div>
 

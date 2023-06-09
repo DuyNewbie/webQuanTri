@@ -90,6 +90,7 @@ exports.createAccount = async (req , res , next) => {
             objUser.phone = req.query.Phone;
             objUser.email = req.query.Email;
             objUser.address = req.query.Address;
+            objUser.status = true;
             objUser.role = "User";
 
             try{

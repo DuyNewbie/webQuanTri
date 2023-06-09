@@ -6,6 +6,7 @@ exports.list = async (req, res, next) => {
     let msg = '';
     let dieuKienLoc = null;
     let dieuKienSapXep = null;
+    let count = await myDB.userModel.countDocuments();
     // //tìm kiếm
     // if (req.query.name != '' && String(req.query.name) != 'undefined') {
     //     dieuKienLoc = { name: { $regex: req.query.name } }
@@ -26,11 +27,12 @@ exports.list = async (req, res, next) => {
 
     // }
     // let listUser = await myDB.userModel.find({role: "staff"})
-    let listUser = await myDB.userModel.find(dieuKienLoc).sort(dieuKienSapXep)
+    let listUser = await myDB.userModel.find(dieuKienLoc).skip(req.query.Index).limit(10).sort(dieuKienSapXep)
 
     res.render('users/list', { 
         title: title, msg: msg, 
         listUser: listUser,
+        count : count
         // idTheLoai: req.params.idtl, 
         // name: req.query.name, 
         // typeSort: req.params.price 
@@ -48,6 +50,7 @@ exports.add = async (req, res, next) => {
         objUser.password = req.body.matkhau;
         objUser.fullname = req.body.hoten;
         objUser.phone = req.body.sdt;
+        objUser.status = true;
         objUser.role = "user"
         try {
             if(req.file){
@@ -85,14 +88,13 @@ exports.update = async (req , res , next) =>{
                 objUser.avata = '/avata/' + req.file.originalname;
             }
         } catch (error) {
-
+            
         }
 
         objUser.fullname = req.body.fullname;
         objUser.phone = req.body.phone;
         objUser.email = req.body.email
         objUser.address = req.body.address;
-
 
         try {
             await myDB.userModel.findByIdAndUpdate(idUser , objUser);
@@ -108,4 +110,50 @@ exports.update = async (req , res , next) =>{
     {
         msg : msg
     });
+}
+
+
+exports.lock = async (req , res , next) => {
+    let msg = "";
+    let idUser = req.params.id;
+
+    let objUser = await myDB.userModel.findById(idUser);
+    objUser.status = false;
+    try {
+        await myDB.userModel.findByIdAndUpdate(idUser , objUser);
+        msg = "Sửa Tài khoản thành công"
+        res.redirect('/user');
+    } catch (error) {
+        console.log(error)
+        msg = "Sửa tài khoản không thành công"
+    }
+
+    res.render('users/list',
+        {
+            msg : msg
+        }
+    )
+}
+
+exports.unLock = async (req , res , next) => {
+    let msg = "";
+    let idUser = req.params.id;
+
+    let objUser = await myDB.userModel.findById(idUser);
+    objUser.status = true;
+
+    try {
+        await myDB.userModel.findByIdAndUpdate(idUser , objUser);
+        msg = "Sửa Tài khoản thành công"
+        res.redirect('/user');
+    } catch (error) {
+        console.log(error)
+        msg = "Sửa tài khoản không thành công"
+    }
+
+    res.render('users/list',
+        {
+            msg : msg
+        }
+    )
 }
