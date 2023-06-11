@@ -4,6 +4,7 @@ const multer = require('multer');
 var upLoader = multer({dest : './tmp'});
 var userApi = require('../Controllers/api/user.api');
 var productApi = require('../Controllers/api/product.api');
+var billApi = require('../Controllers/api/bill.api');
 
 //user
 router.get('/user' , userApi.list);
@@ -16,5 +17,8 @@ router.post('/change-info' , userApi.changeInfo);
 
 //Prodcut
 router.get('/product' , productApi.list);
+
+//Bill
+router.post('/add-bill' , billApi.addBill);
 
 module.exports = router;

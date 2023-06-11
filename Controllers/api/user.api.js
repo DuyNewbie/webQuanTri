@@ -79,8 +79,8 @@ exports.createAccount = async (req , res , next) => {
     if(req.method == 'POST'){
 
         let objCheck = await mdUser.userModel.findOne({username : req.query.UserName});
-
         let objUser = new mdUser.userModel();
+
         if(objCheck){
             msg = "User đã tồn tại";
         }else{
@@ -92,7 +92,7 @@ exports.createAccount = async (req , res , next) => {
             objUser.address = req.query.Address;
             objUser.status = true;
             objUser.role = "User";
-
+            
             try{
                 await objUser.save();
                 msg = "Đăng ký thành công";
