@@ -18,7 +18,7 @@ exports.add = async (req, res, next) => {
         objCate.name = req.body.name;
 
         try {
-            let new_TL = await objCate.save();
+            await objCate.save();
             msg = "Thêm thể loại thành công"
             res.redirect('/category')
         } catch (error) {

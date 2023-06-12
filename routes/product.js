@@ -1,23 +1,24 @@
 var express = require('express');
 var router = express.Router();
 var productCtrl = require('../Controllers/product.controller');
+var checkLogin = require('../meddlewares/check_login');
 
 const multer = require('multer');
 var upLoader = multer({dest : './tmp'});
 
 
-router.get('/', productCtrl.list);
-router.get('/filter/:idtl',  productCtrl.list)
-router.get('/sort/:gia', productCtrl.list)
-router.get('/search', productCtrl.list)
+router.get('/', checkLogin.checkLogin, productCtrl.list);
+router.get('/filter/:idtl',checkLogin.checkLogin , productCtrl.list)
+router.get('/sort/:gia', checkLogin.checkLogin, productCtrl.list)
+router.get('/search', checkLogin.checkLogin, productCtrl.list)
 
-router.post('/' , upLoader.single("uimage-product") , productCtrl.updateP);
+router.post('/' ,checkLogin.checkLogin , upLoader.single("uimage-product") , productCtrl.updateP);
 
-router.get('/add', productCtrl.add);
-router.post('/add',upLoader.single("image-product") , productCtrl.add);
+router.get('/add', checkLogin.checkLogin, productCtrl.add);
+router.post('/add', checkLogin.checkLogin,upLoader.single("image-product") , productCtrl.add);
 
-router.get('/delete/:idProU', productCtrl.delete);
-router.get('/detail/:idProU', productCtrl.detail);
+router.get('/delete/:idProU', checkLogin.checkLogin, productCtrl.delete);
+router.get('/detail/:idProU', checkLogin.checkLogin, productCtrl.detail);
 
 
 module.exports = router;

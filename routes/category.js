@@ -1,13 +1,14 @@
 var express = require('express');
 var router = express.Router();
 var categoryCtrl = require('../Controllers/category.controller');
+var checkLogin = require('../meddlewares/check_login');
 
-router.get('/', categoryCtrl.list);
-router.post('/', categoryCtrl.update);
+router.get('/',checkLogin.checkLogin, categoryCtrl.list);
+router.post('/',checkLogin.checkLogin, categoryCtrl.update);
 
-router.get('/add', categoryCtrl.add);
-router.post('/add', categoryCtrl.add);
+router.get('/add',checkLogin.checkLogin, categoryCtrl.add);
+router.post('/add',checkLogin.checkLogin, categoryCtrl.add);
 
-router.get('/delete/:idCate', categoryCtrl.delete);
+router.get('/delete/:idCate',checkLogin.checkLogin, categoryCtrl.delete);
 
 module.exports = router;
