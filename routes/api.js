@@ -21,4 +21,4 @@ router.get('/product' , productApi.list);
 //Bill
 router.post('/add-bill' , billApi.addBill);
 
-module.exports = router;j
+module.exports = router;
