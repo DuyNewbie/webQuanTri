@@ -17,7 +17,7 @@ exports.index = async (req , res , next) =>{
         user: soLuongUser, 
         admin: soLuongAdmin 
     })
-}
+}l
 
 exports.login = async (req , res , next) => {
     let msg = "";
