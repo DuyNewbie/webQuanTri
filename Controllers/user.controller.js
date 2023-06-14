@@ -41,7 +41,7 @@ exports.list = async (req, res, next) => {
 
 exports.add = async (req, res, next) => {
     console.log(req.body , req.file);
-    let title = 'Thêm Sản Phẩm';
+    let title = 'Danh Sách Tài khoản';
     let msg = '';
     if (req.method == "POST") {
 

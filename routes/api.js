@@ -19,6 +19,8 @@ router.post('/change-info' , userApi.changeInfo);
 router.get('/product' , productApi.list);
 
 //Bill
+router.get('/list-cart' , billApi.list);
+router.post('/add-cart' , billApi.addCart);
 router.post('/add-bill' , billApi.addBill);
 
 module.exports = router;

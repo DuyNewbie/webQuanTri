@@ -1,5 +1,26 @@
-const express = require('express');
 var mdBill = require('../../models/bills.model');
+
+exports.list = async (req , res , next) => {
+    let msg = "";
+
+    let listCart = new mdBill.cartModel();
+
+    try {
+        listCart = await mdBill.cartModel.find({id_User : req.query.idUser});
+        msg = "Lấy danh sách giỏ hàng thành công";
+    } catch (error) {
+        console.log(error);
+        msg = "Lấy danh sách thất bại";
+    }
+    
+
+    res.status(200).json(
+        {
+            msg : msg,
+            listCart : listCart
+        }
+    )
+}
 
 exports.addCart = async (req , res , next) => {
     let msg = "";
@@ -8,11 +29,13 @@ exports.addCart = async (req , res , next) => {
     if(req.method == 'POST'){
         let objCart = new mdBill.cartModel();
 
-        objCart.id_product = req.query.Product;
+        objCart.id_User = req.query.idUser;
+        objCart.id_product = req.query.idProduct;
         objCart.quantity = req.query.Quantity;
 
         try {
             await objCart.save();
+            isComplete = true;
             msg = "Thêm thành công";
         } catch (error) {
             console.log(error);

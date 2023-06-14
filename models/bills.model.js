@@ -16,6 +16,7 @@ let billModel = DB.mongoose.model('billModel' , billSchema);
 
 const cartSchema = new DB.mongoose.Schema(
     {
+        id_User : {type : DB.mongoose.Schema.Types.ObjectId , ref : 'userModel'},
         id_product : {type : DB.mongoose.Schema.Types.ObjectId , ref : 'productModel'},
         quantity : {type : Number , require : true}
     },
