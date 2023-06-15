@@ -3,6 +3,7 @@
     var acProduct = '';
     var acUser = '';
     var acBill = '';
+    var acAccount = '';
 
     if (typeof(title) == 'undefined') {
         title = '';
@@ -10,13 +11,15 @@
 
     if(title != ''){
         if(title == "Trang chủ"){
-            var acHome = 'active';
+            acHome = 'active';
         }else if(title == "Danh Sách Sản Phẩm" || title == "Danh Sách Thể Loại"){
-            var acProduct = 'active';
+            acProduct = 'active';
         }else if(title == "Danh Sách Tài khoản"){
-            var acUser = 'active';
+            acUser = 'active';
         }else if(title == "Danh Sách hóa đơn"){
-            var acBill = 'active';
+            acBill = 'active';
+        }else if(title == 'Thay đổi mật khẩu'){
+            acAccount = 'active';
         }
     }
 
@@ -65,10 +68,8 @@
                     </li>
                     
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle <%- acProduct %>" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <%  if (!typeof(sUser) == 'undefined') { %>
+                        <a class="nav-link dropdown-toggle <%- acAccount %>" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <%= sUser %>
-                           <% } %>
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="/#">Đổi mật khẩu</a></li>

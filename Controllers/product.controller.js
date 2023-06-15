@@ -26,7 +26,7 @@ exports.list = async (req, res, next) => {
         }
     }
 
-    let listProd = await myDB.productModel.find(dieuKienLoc).skip(req.query.Index).limit(10).sort(dieuKienSapXep).populate('id_category')
+    let listProd = await myDB.productModel.find(dieuKienLoc).skip(req.query.Index).limit(10).sort(dieuKienSapXep).populate('id_category');
     let listCate = await myDB.categoryModel.find();
     let count = await myDB.productModel.countDocuments();
 

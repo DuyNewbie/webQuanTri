@@ -65,6 +65,18 @@ exports.login = async (req , res , next) => {
     )
 }
 
+exports.chanePassword = (req , res ,next) => {
+    let title = "Thay đổi mật khẩu";
+    let msg = "";
+    let typeErr = false;
+    
+
+    res.render('index', {   
+        title: title,
+        sUser : req.session.userLogin.fullname
+    })
+}
+
 exports.logout = (req , res , next) => {
     req.session.destroy();
     res.redirect('/login');
