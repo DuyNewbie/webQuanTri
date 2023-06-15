@@ -137,63 +137,123 @@
                         </div>
                     </td>
                     <!-- Chức năng xóa -->
-                    <% if(listUser[i].status){ %>
-                        <td class="text-center">
-                            <button type="button" class="btn btn-success p-2" data-bs-toggle="modal"
-                                data-bs-target="#lockUser<%= listUser[i]._id%>" style="width: 48px; height: 48px;">
-                                <i class="bi bi-unlock" style="font-size: 1.5rem;"></i>
-                            </button>
-    
-                            <div class="modal fade" id="lockUser<%= listUser[i]._id%>" tabindex="-1"
-                                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Khóa người dùng</h1>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <p>Bạn có chắc muốn khóa người dùng này ?</p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">Close</button>
-                                            <a class="btn btn-primary" href="/user/lock/<%= listUser[i]._id%>">Khóa</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </td>
-                    <% }else{ %>
-                        <td class="text-center">
-                            <button type="button" class="btn btn-danger p-2" data-bs-toggle="modal"
-                                data-bs-target="#lockUser<%= listUser[i]._id%>" style="width: 48px; height: 48px;">
-                                <i class="bi bi-lock" style="font-size: 1.5rem;"></i>
-                            </button>
-    
-                            <div class="modal fade" id="lockUser<%= listUser[i]._id%>" tabindex="-1"
-                                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Mở khóa người dùng</h1>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <p>Bạn có chắc muốn mở khóa người dùng này ?</p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">Close</button>
-                                            <a class="btn btn-primary" href="/user/un-lock/<%=listUser[i]._id%>">Mở khóa</a>
+                    <% if(role == "Admin"){ %>
+                        <% if(listUser[i].status){ %>
+                            <td class="text-center">
+                                <button type="button" class="btn btn-success p-2" data-bs-toggle="modal"
+                                    data-bs-target="#lockUser<%= listUser[i]._id%>" style="width: 48px; height: 48px;">
+                                    <i class="bi bi-unlock" style="font-size: 1.5rem;"></i>
+                                </button>
+        
+                                <div class="modal fade" id="lockUser<%= listUser[i]._id%>" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Khóa người dùng</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Bạn có chắc muốn khóa người dùng này ?</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
+                                                <a class="btn btn-primary" href="/user/lock/<%= listUser[i]._id%>">Khóa</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </td>
+                            </td>
+                        <% }else{ %>
+                            <td class="text-center">
+                                <button type="button" class="btn btn-danger p-2" data-bs-toggle="modal"
+                                    data-bs-target="#lockUser<%= listUser[i]._id%>" style="width: 48px; height: 48px;">
+                                    <i class="bi bi-lock" style="font-size: 1.5rem;"></i>
+                                </button>
+        
+                                <div class="modal fade" id="lockUser<%= listUser[i]._id%>" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Mở khóa người dùng</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Bạn có chắc muốn mở khóa người dùng này ?</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
+                                                <a class="btn btn-primary" href="/user/un-lock/<%=listUser[i]._id%>">Mở khóa</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        <% } %>
+                    <% }else { %>
+                        <% if(listUser[i].status){ %>
+                            <td class="text-center">
+                                <button type="button" class="btn btn-success p-2" data-bs-toggle="modal"
+                                    data-bs-target="#lockUser<%= listUser[i]._id%>" style="width: 48px; height: 48px;">
+                                    <i class="bi bi-unlock" style="font-size: 1.5rem;"></i>
+                                </button>
+        
+                                <div class="modal fade" id="lockUser<%= listUser[i]._id%>" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Khóa người dùng</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Bạn Không có quyền này</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        <% }else{ %>
+                            <td class="text-center">
+                                <button type="button" class="btn btn-danger p-2" data-bs-toggle="modal"
+                                    data-bs-target="#lockUser<%= listUser[i]._id%>" style="width: 48px; height: 48px;">
+                                    <i class="bi bi-lock" style="font-size: 1.5rem;"></i>
+                                </button>
+        
+                                <div class="modal fade" id="lockUser<%= listUser[i]._id%>" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Mở khóa người dùng</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Bạn không quyền này</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        <% } %>
                     <% } %>
+
+                    
                     
                 </tr>
                 <% } %>

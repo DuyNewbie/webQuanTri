@@ -33,7 +33,8 @@ exports.list = async (req, res, next) => {
         title: title, msg: msg, 
         listUser: listUser,
         count : count,
-        sUser : req.session.userLogin.fullname
+        sUser : req.session.userLogin.fullname,
+        role : req.session.userLogin.role
         // idTheLoai: req.params.idtl, 
         // name: req.query.name, 
         // typeSort: req.params.price 
@@ -42,7 +43,7 @@ exports.list = async (req, res, next) => {
 
 exports.add = async (req, res, next) => {
     console.log(req.body , req.file);
-    let title = 'Danh Sách Tài khoản';
+    let title = 'Tạo Tài khoản';
     let msg = '';
     if (req.method == "POST") {
 

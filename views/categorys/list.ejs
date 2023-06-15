@@ -82,37 +82,67 @@
                             </div>
                         </td>
                         <!-- Chức năng xóa -->
-                        <td class="text-center">
-                            <button type="button" class="btn btn-danger p-2" data-bs-toggle="modal"
-                                data-bs-target="#xoa<%= listCate[i]._id %>" style="width: 48px; height: 48px;">
-                                <i class="bi bi-trash3" style="font-size: 1.5rem; text-align: center;"></i>
-                            </button>
-
-                            <div class="modal fade" id="xoa<%= listCate[i]._id %>" tabindex="-1"
-                                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Xóa sản phẩm</h1>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <p>Bạn có chắc muốn xóa loại sản phẩm này ?</p>
-                                            <p>Nếu xóa thì các sản phẩm có cùng thể loại cũng bị xóa theo!</p>
-
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">Close</button>
-
-                                            <a class="btn btn-primary"
-                                                href="/category/delete/<%= listCate[i]._id %>">Xóa</a>
+                        <% if(role == "Admin"){ %>
+                            <td class="text-center">
+                                <button type="button" class="btn btn-danger p-2" data-bs-toggle="modal"
+                                    data-bs-target="#xoa<%= listCate[i]._id %>" style="width: 48px; height: 48px;">
+                                    <i class="bi bi-trash3" style="font-size: 1.5rem; text-align: center;"></i>
+                                </button>
+    
+                                <div class="modal fade" id="xoa<%= listCate[i]._id %>" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Xóa sản phẩm</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Bạn có chắc muốn xóa loại sản phẩm này ?</p>
+                                                <p>Nếu xóa thì các sản phẩm có cùng thể loại cũng bị xóa theo!</p>
+    
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
+    
+                                                <a class="btn btn-primary"
+                                                    href="/category/delete/<%= listCate[i]._id %>">Xóa</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </td>
+                            </td>
+                        <% }else { %>
+                            <td class="text-center">
+                                <button type="button" class="btn btn-danger p-2" data-bs-toggle="modal"
+                                    data-bs-target="#xoa<%= listCate[i]._id %>" style="width: 48px; height: 48px;">
+                                    <i class="bi bi-trash3" style="font-size: 1.5rem; text-align: center;"></i>
+                                </button>
+    
+                                <div class="modal fade" id="xoa<%= listCate[i]._id %>" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Xóa sản phẩm</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Bạn không có quyền Xóa</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        <% } %>
+                       
                     </tr>
                     <% } %>
             </tbody>

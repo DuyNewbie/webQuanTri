@@ -6,7 +6,7 @@ exports.list = async (req, res, next) => {
     let dieuKiemLoc = null;
     let list = await myDB.categoryModel.find(dieuKiemLoc);
 
-    res.render('categorys/list', { title: title, listCate : list, msg: msg ,sUser : req.session.userLogin.fullname})
+    res.render('categorys/list', { title: title, listCate : list, msg: msg ,sUser : req.session.userLogin.fullname , role : req.session.userLogin.role})
 }
 
 exports.add = async (req, res, next) => {
@@ -47,10 +47,13 @@ exports.update = async (req, res, next) => {
 }
 
 exports.delete = async (req, res, next) => {
-    let id = req.params.idCate
+    let id = req.params.idCate;
+
+
 
     try {
         await myDB.categoryModel.findByIdAndDelete(id)
+        await myDB.productModel.deleteMany({id_category : id});
         res.redirect('/category')
     } catch (error) {
         msg = "Lỗi ghi cơ sở dữ liệu" + error.message;
