@@ -13,3 +13,16 @@ exports.list = async (req , res , next) => {
         }
     )
 }
+
+exports.listProdInCate = async (req , res , next) => {
+    let msg = "list san pham theo the loai";
+
+    let listProd = await mdProd.productModel.find({id_category : req.query.idCategory});
+
+    res.status(200).json(
+        {
+            msg : msg,
+            listProd : listProd
+        }
+    )
+}

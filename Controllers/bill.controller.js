@@ -7,6 +7,7 @@ exports.list = async (req , res , next) =>{
     res.render('bills/list' , 
     {
         title: title,
-        listBill : listBill
+        listBill : listBill,
+        sUser : req.session.userLogin.fullname
     });
 }

@@ -1,19 +1,25 @@
 var mdBill = require('../../models/bills.model');
+var mdProd = require('../../models/products.model');
 
 exports.list = async (req , res , next) => {
     let msg = "";
 
     let listCart = new mdBill.cartModel();
+    let listIdProd = [];
+    let listProd = new mdProd.productModel();
 
     try {
-        listCart = await mdBill.cartModel.find({id_User : req.query.idUser});
+        listCart = await mdBill.cartModel.find({id_User : req.query.idUser}).populate('id_product');
+        listCart.forEach(item => {
+            listIdProd.push(item.id_product);
+        });
+        listProd = await mdProd.productModel.find({_id : {$in : listIdProd}});
         msg = "Lấy danh sách giỏ hàng thành công";
     } catch (error) {
         console.log(error);
         msg = "Lấy danh sách thất bại";
     }
     
-
     res.status(200).json(
         {
             msg : msg,
@@ -72,7 +78,7 @@ exports.addBill = async (req , res , next) => {
         try {
             await objBillOne.save();
             msg = "Mua sản phẩm thành công"
-            let isComplete = true;
+            isComplete = true;
         } catch (error) {
             console.log(error);
             msg = "Mua sản phẩm thất bại";

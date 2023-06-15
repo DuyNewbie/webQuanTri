@@ -6,7 +6,7 @@ exports.list = async (req, res, next) => {
     let dieuKiemLoc = null;
     let list = await myDB.categoryModel.find(dieuKiemLoc);
 
-    res.render('categorys/list', { title: title, listCate : list, msg: msg })
+    res.render('categorys/list', { title: title, listCate : list, msg: msg ,sUser : req.session.userLogin.fullname})
 }
 
 exports.add = async (req, res, next) => {
@@ -25,7 +25,7 @@ exports.add = async (req, res, next) => {
             msg = "Lỗi ghi cơ sở dữ liệu" + error.message;
         }
     }
-    res.render('categorys/add', { title: title, msg: msg, })
+    res.render('categorys/add', { title: title, msg: msg,sUser : req.session.userLogin.fullname })
 }
 
 exports.update = async (req, res, next) => {

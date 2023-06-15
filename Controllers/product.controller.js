@@ -37,7 +37,8 @@ exports.list = async (req, res, next) => {
         idTheLoai: req.params.idtl,
         name: req.query.name,
         typeSort: req.params.gia,
-        count : count
+        count : count,
+        sUser : req.session.userLogin.fullname
     })
 }
 
@@ -73,7 +74,8 @@ exports.add = async (req, res, next) => {
 
     res.render('products/add', {
         title: title, msg: msg,
-        listTL: listTL
+        listTL: listTL,
+        sUser : req.session.userLogin.fullname
     });
 }
 
@@ -138,5 +140,5 @@ exports.detail = async (req, res, next) => {
     let data = await myDB.productModel.findById(idSP).populate('id_category');
     let listCmt = await myDB.commentModel.find(locCmt).populate('id_user')
 
-    res.render('products/detail', { title: tieuDe, data: data, msg: msg, listCmt: listCmt })
+    res.render('products/detail', { title: tieuDe, data: data, msg: msg, listCmt: listCmt ,sUser : req.session.userLogin.fullname})
 }

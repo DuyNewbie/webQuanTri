@@ -10,12 +10,13 @@ exports.index = async (req , res , next) =>{
     let soLuongUser = await myDBUser.userModel.find({role: "User"}).count()
     let soLuongAdmin = await myDBUser.userModel.find({role: "Staff"}).count()
 
-    res.render('index', {
-        title: title, 
-        category: soLuongCate, 
-        product: soLuongProd, 
-        user: soLuongUser, 
-        admin: soLuongAdmin 
+    res.render('index', {   
+        title: title,
+        category: soLuongCate,
+        product: soLuongProd,
+        user: soLuongUser,
+        admin: soLuongAdmin,
+        sUser : req.session.userLogin.fullname
     })
 }
 
@@ -62,4 +63,9 @@ exports.login = async (req , res , next) => {
             typeErr : typeErr
         }
     )
+}
+
+exports.logout = (req , res , next) => {
+    req.session.destroy();
+    res.redirect('/login');
 }

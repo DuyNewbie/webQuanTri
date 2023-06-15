@@ -49,19 +49,31 @@
                     <a class="nav-link <%- acHome %>" aria-current="page" href="/">Home</a>
                     </li>
                     <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle <%- acProduct %>" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Sản phẩm
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="/product">Sản phẩm</a></li>
-                        <li><a class="dropdown-item" href="/category">Loại sản phẩm</a></li>
-                    </ul>
+                        <a class="nav-link dropdown-toggle <%- acProduct %>" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Sản phẩm
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/product">Sản phẩm</a></li>
+                            <li><a class="dropdown-item" href="/category">Loại sản phẩm</a></li>
+                        </ul>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link <%- acUser %>" href="/user">Tài khoản</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link <%- acBill %>" href="/bill">Hóa đơn</a>
+                    </li>
+                    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle <%- acProduct %>" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <%  if (!typeof(sUser) == 'undefined') { %>
+                                <%= sUser %>
+                           <% } %>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/#">Đổi mật khẩu</a></li>
+                            <li><a class="dropdown-item" href="/logout">Đăng xuất</a></li>
+                        </ul>
                     </li>
                 </ul>
                 </div>

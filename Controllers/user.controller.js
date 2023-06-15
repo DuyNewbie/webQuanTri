@@ -32,7 +32,8 @@ exports.list = async (req, res, next) => {
     res.render('users/list', { 
         title: title, msg: msg, 
         listUser: listUser,
-        count : count
+        count : count,
+        sUser : req.session.userLogin.fullname
         // idTheLoai: req.params.idtl, 
         // name: req.query.name, 
         // typeSort: req.params.price 
@@ -51,7 +52,7 @@ exports.add = async (req, res, next) => {
         objUser.fullname = req.body.hoten;
         objUser.phone = req.body.sdt;
         objUser.status = true;
-        objUser.role = "user"
+        objUser.role = "Staff"
         try {
             if(req.file){
                 fs.renameSync(req.file.path, './public/avata/'+req.file.originalname);
@@ -71,7 +72,7 @@ exports.add = async (req, res, next) => {
     }
 
     res.render('users/add', { 
-        title: title, msg: msg, 
+        title: title, msg: msg, sUser : req.session.userLogin.fullname
     });
 }
 

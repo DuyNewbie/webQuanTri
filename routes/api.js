@@ -17,6 +17,7 @@ router.post('/change-info' , userApi.changeInfo);
 
 //Prodcut
 router.get('/product' , productApi.list);
+router.get('/product-by-category' , productApi.listProdInCate);
 
 //Bill
 router.get('/list-cart' , billApi.list);

@@ -12,5 +12,6 @@ router.get('/', checkLogin.checkLogin , indexCtrl.index);
 
 router.get('/login' , indexCtrl.login);
 router.post('/login' , indexCtrl.login);
+router.get('/logout' , indexCtrl.logout);
 
 module.exports = router;
