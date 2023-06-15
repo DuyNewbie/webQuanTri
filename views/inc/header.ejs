@@ -12,9 +12,9 @@
     if(title != ''){
         if(title == "Trang chủ"){
             acHome = 'active';
-        }else if(title == "Danh Sách Sản Phẩm" || title == "Danh Sách Thể Loại"){
+        }else if(title == "Danh Sách Sản Phẩm" || title == "Danh Sách Thể Loại" || title == "Thêm Sản Phẩm" || title == "Thêm Thể Loại"){
             acProduct = 'active';
-        }else if(title == "Danh Sách Tài khoản"){
+        }else if(title == "Danh Sách Tài khoản" || title == "Tạo Tài khoản"){
             acUser = 'active';
         }else if(title == "Danh Sách hóa đơn"){
             acBill = 'active';
@@ -72,7 +72,7 @@
                                 <%= sUser %>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/#">Đổi mật khẩu</a></li>
+                            <li><a class="dropdown-item" href="/chane-password">Đổi mật khẩu</a></li>
                             <li><a class="dropdown-item" href="/logout">Đăng xuất</a></li>
                         </ul>
                     </li>

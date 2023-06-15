@@ -197,8 +197,9 @@
                                 </div>
                             </div>
                         </td>
-                       
-                        <td class="text-center">
+
+                        <% if(role == "Admin"){ %>
+                            <td class="text-center">
                             <button type="button" class="btn btn-danger p-2" data-bs-toggle="modal"
                                 data-bs-target="#xoaSP<%= listProd[i]._id%>" style="width: 48px; height: 48px;">
                                 <i class="bi bi-trash3" style="font-size: 1.5rem; text-align: center;"></i>
@@ -226,6 +227,36 @@
                                 </div>
                             </div>
                         </td>
+                        <% }else { %>
+                            <td class="text-center">
+                            <button type="button" class="btn btn-danger p-2" data-bs-toggle="modal"
+                                data-bs-target="#xoaSP<%= listProd[i]._id%>" style="width: 48px; height: 48px;">
+                                <i class="bi bi-trash3" style="font-size: 1.5rem; text-align: center;"></i>
+                            </button>
+
+                            <div class="modal fade" id="xoaSP<%= listProd[i]._id%>" tabindex="-1"
+                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Xóa sản phẩm</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Bạn không có quyền xóa?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <% } %>
+                       
+                        
                     </tr>
                     <% } %>
             </tbody>

@@ -13,5 +13,7 @@ router.get('/', checkLogin.checkLogin , indexCtrl.index);
 router.get('/login' , indexCtrl.login);
 router.post('/login' , indexCtrl.login);
 router.get('/logout' , indexCtrl.logout);
+router.get('/chane-password' , indexCtrl.chanePassword);
+router.post('/chane-password' , indexCtrl.chanePassword)
 
 module.exports = router;

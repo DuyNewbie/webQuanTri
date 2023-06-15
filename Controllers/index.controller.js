@@ -65,14 +65,42 @@ exports.login = async (req , res , next) => {
     )
 }
 
-exports.chanePassword = (req , res ,next) => {
+exports.chanePassword = async (req , res ,next) => {
     let title = "Thay đổi mật khẩu";
     let msg = "";
     let typeErr = false;
-    
 
-    res.render('index', {   
+    if(req.method == 'POST'){
+
+        let idUser = req.session.userLogin._id;
+
+        let objUser = await myDBUser.userModel.findById(idUser);
+
+        if(objUser.password == req.body.matKhauCu){
+            if(req.body.matKhauMoi == req.body.NhapLaiMatKhau){
+                objUser.password = req.body.matKhauMoi;
+                try {
+                    await myDBUser.userModel.findByIdAndUpdate(idUser , objUser);
+                    msg = "Thay đổi mật khẩu thành công";
+                    typeErr = false;
+                } catch (error) {
+                    msg = "Lưu mật khẩu thất bại"
+                    typeErr = true;
+                }
+            }else {
+                msg = "Xác nhân mật khẩu khôn chính xác";
+                typeErr = true
+            }
+        }else {
+            msg = "Mật khẩu cũ không đúng";
+            typeErr = true;
+        }
+    }
+
+    res.render('account/chane_password', {   
         title: title,
+        msg : msg,
+        typeErr : typeErr,
         sUser : req.session.userLogin.fullname
     })
 }

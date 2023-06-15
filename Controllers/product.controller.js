@@ -38,7 +38,8 @@ exports.list = async (req, res, next) => {
         name: req.query.name,
         typeSort: req.params.gia,
         count : count,
-        sUser : req.session.userLogin.fullname
+        sUser : req.session.userLogin.fullname,
+        role : req.session.userLogin.role
     })
 }
 
@@ -83,16 +84,15 @@ exports.delete = async (req, res, next) => {
     let msg = '';
     let idProduct = req.params.idProU;
 
-    let objProduct = new myDB.productModel();
-    objProduct._id = idProduct;
-
     try {
-        await myDB.productModel.findByIdAndDelete(idProduct, objProduct)
+        await myDB.productModel.findByIdAndDelete(idProduct);
         msg = "Xóa thể loại thành công"
         res.redirect('/product')
     } catch (error) {
         msg = "Lỗi ghi cơ sở dữ liệu" + error.message;
     }
+
+    
     res.render('products/list', { msg: msg })
 }
 
