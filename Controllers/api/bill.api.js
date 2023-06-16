@@ -10,6 +10,7 @@ exports.list = async (req , res , next) => {
 
     try {
         listCart = await mdBill.cartModel.find({id_User : req.query.idUser}).populate('id_product');
+        
         listCart.forEach(item => {
             listIdProd.push(item.id_product);
         });
@@ -34,7 +35,6 @@ exports.addCart = async (req , res , next) => {
 
     if(req.method == 'POST'){
         let objCart = new mdBill.cartModel();
-
         let objProd = await mdProd.productModel.findById(req.query.idProduct);
 
         console.log("so Luong sp : " + objProd.quantity + "   mua sp : " + req.query.Quantity);
@@ -77,6 +77,10 @@ exports.addBill = async (req , res , next) => {
     if(req.method = 'POST'){
         let listIdCart = Array(req.query.Cart);
 
+        console.log(listIdCart);
+
+
+        console.log("-------------------------");
         
 
         for(let i = 0 ; i < listIdCart.length ; i++){

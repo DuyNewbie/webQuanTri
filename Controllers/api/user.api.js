@@ -167,9 +167,11 @@ exports.changeInfo = async (req , res , next ) => {
             try {
                 await mdUser.userModel.findByIdAndUpdate(objUser._id , objUser);
                 msg = "Thay đổi thông tin thành công";
+                isComplete = true;
             } catch (error) {
                 console.log(error);
                 msg = "Thay đổi thông tin không thành công (csld)"
+                isComplete = false;
             }
         }else{
             msg = "UserName không tồn tại";
