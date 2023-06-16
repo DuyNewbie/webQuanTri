@@ -75,7 +75,7 @@ exports.addBill = async (req , res , next) => {
     let isOK = true;
 
     if(req.method = 'POST'){
-        let listIdCart = Array(req.query.Cart);
+        let listIdCart = req.query.Cart;
 
         console.log(listIdCart);
 
