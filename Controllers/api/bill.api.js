@@ -13,7 +13,7 @@ exports.list = async (req , res , next) => {
         listCart.forEach(item => {
             listIdProd.push(item.id_product);
         });
-        listProd = await mdProd.productModel.find({_id : {$in : listIdProd}});
+        listProd = await mdProd.productModel.find({_id : {$in : listIdProd} , status : true});
         msg = "Lấy danh sách giỏ hàng thành công";
     } catch (error) {
         console.log(error);
@@ -37,10 +37,14 @@ exports.addCart = async (req , res , next) => {
 
         let objProd = mdProd.productModel.findById(req.query.idProduct);
 
+        console.log("so Luong sp : " + objProd.quantity + "   mua sp : " + req.query.Quantity);
+        
         if(objProd.quantity >= req.query.Quantity){
+            console.log("so Luong sp : " + objProd.quantity + "   mua sp : " + req.query.Quantity);
             objCart.id_User = req.query.idUser;
             objCart.id_product = req.query.idProduct;
             objCart.quantity = req.query.Quantity;
+            objCart.status = true;
     
             try {
                 await objCart.save();
