@@ -79,10 +79,8 @@ exports.addBill = async (req , res , next) => {
 
         console.log(listIdCart);
 
-
         console.log("-------------------------");
         
-
         for(let i = 0 ; i < listIdCart.length ; i++){
             console.log(listIdCart);
 
@@ -97,32 +95,32 @@ exports.addBill = async (req , res , next) => {
         }
 
     //    if(isOK){
-    //         listCart.forEach(async item => {
-    //             let objProd = await mdProd.productModel.findById(item.id_product);
-    //             objProd.quantity -= item.quantity;
-    //         });
+            // listCart.forEach(async item => {
+            //     let objProd = await mdProd.productModel.findById(item.id_product);
+            //     objProd.quantity -= item.quantity;
+            // });
 
-    //         let date_ob = new Date();
-    //         let year = date_ob.getFullYear();
-    //         let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
-    //         let date = ("0" + date_ob.getDate()).slice(-2);
+            // let date_ob = new Date();
+            // let year = date_ob.getFullYear();
+            // let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+            // let date = ("0" + date_ob.getDate()).slice(-2);
 
-    //         let objBillOne = new mdBill.billModel();
+            // let objBillOne = new mdBill.billModel();
 
-    //         objBillOne.id_user = req.query.idUser;
-    //         objBillOne.cart = listCart;
-    //         objBillOne.prices = req.query.Prices;
-    //         objBillOne.date = year + "-" + month + "-" + date;
-    //         objBillOne.status = "Chờ";
+            // objBillOne.id_user = req.query.idUser;
+            // objBillOne.cart = listCart;
+            // objBillOne.prices = req.query.Prices;
+            // objBillOne.date = year + "-" + month + "-" + date;
+            // objBillOne.status = "Chờ";
 
-    //         try {
-    //             await objBillOne.save();
-    //             msg = "Mua sản phẩm thành công"
-    //             isComplete = true;
-    //         } catch (error) {
-    //             console.log(error);
-    //             msg = "Mua sản phẩm thất bại";
-    //         }
+            // try {
+            //     await objBillOne.save();
+            //     msg = "Mua sản phẩm thành công"
+            //     isComplete = true;
+            // } catch (error) {
+            //     console.log(error);
+            //     msg = "Mua sản phẩm thất bại";
+            // }
     //    }
     }
 
