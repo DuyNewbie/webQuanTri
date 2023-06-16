@@ -35,10 +35,10 @@ exports.addCart = async (req , res , next) => {
     if(req.method == 'POST'){
         let objCart = new mdBill.cartModel();
 
-        let objProd = mdProd.productModel.findById(req.query.idProduct);
+        let objProd = await mdProd.productModel.findById(req.query.idProduct);
 
         console.log("so Luong sp : " + objProd.quantity + "   mua sp : " + req.query.Quantity);
-        
+
         if(objProd.quantity >= req.query.Quantity){
             console.log("so Luong sp : " + objProd.quantity + "   mua sp : " + req.query.Quantity);
             objCart.id_User = req.query.idUser;
