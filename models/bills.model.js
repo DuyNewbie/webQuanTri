@@ -3,7 +3,7 @@ var DB = require('./db');
 const billSchema = new DB.mongoose.Schema(
     {
         id_user : {type : DB.mongoose.Schema.Types.ObjectId , ref : 'userModel'},
-        cart : {type : Array, require: true},
+        cart : {type : Array, default:[]},
         prices : {type : Number , require : false},
         date : {type : String , require : true},
         status : {type : String , require : false}
