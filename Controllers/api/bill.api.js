@@ -9,12 +9,12 @@ exports.list = async (req , res , next) => {
     let listProd = new mdProd.productModel();
 
     try {
-        listCart = await mdBill.cartModel.find({id_User : req.query.idUser}).populate('id_product');
+        listCart = await mdBill.cartModel.find({id_User : req.query.idUser , status : true}).populate('id_product');
         
         listCart.forEach(item => {
             listIdProd.push(item.id_product);
         });
-        listProd = await mdProd.productModel.find({_id : {$in : listIdProd} , status : true});
+        listProd = await mdProd.productModel.find({_id : {$in : listIdProd}});
         msg = "Lấy danh sách giỏ hàng thành công";
     } catch (error) {
         console.log(error);
@@ -74,54 +74,63 @@ exports.addBill = async (req , res , next) => {
     let isComplete = false;
     let isOK = true;
 
+    let sCart = req.query.listCart;
+
+    let listIdCart = sCart.split("-");
+
     if(req.method = 'POST'){
-        let listIdCart = req.query.Cart;
-
-        console.log(listIdCart);
-
-        console.log("-------------------------");
         
-        for(let i = 0 ; i < listIdCart.length ; i++){
-            console.log(listIdCart);
+        for(let i = 0 ; i < listIdCart.length - 1 ; i++){
+            console.log(listIdCart[i]);
 
-            // let objCart = await mdBill.cartModel.findById(listIdCart[i])
-            // let objProd = await mdProd.productModel.findById(objCart.id_product);
+            let objCart = await mdBill.cartModel.findById(listIdCart[i])
+            let objProd = await mdProd.productModel.findById(objCart.id_product);
             
-            // if(objProd.quantity < objCart.quantity){
-            //     isOK = false;
-            //     msg = "Số lượng sản phẩm không đủ";
-            //     isComplete = false;
-            // }
+            if(objProd.quantity < objCart.quantity){
+                isOK = false;
+                msg = "Số lượng sản phẩm không đủ";
+                isComplete = false;
+            }
         }
 
-    //    if(isOK){
-            // listCart.forEach(async item => {
-            //     let objProd = await mdProd.productModel.findById(item.id_product);
-            //     objProd.quantity -= item.quantity;
-            // });
+       if(isOK){
+            for(let i = 0 ; i < listIdCart.length - 1 ; i++){
+                let objCart = await mdBill.cartModel.findById(listIdCart[i]);
+                let objProd = await mdProd.productModel.findById(objCart.id_product); 
 
-            // let date_ob = new Date();
-            // let year = date_ob.getFullYear();
-            // let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
-            // let date = ("0" + date_ob.getDate()).slice(-2);
+                objProd.quantity -= objCart.quantity;
+                objCart.status = false;
 
-            // let objBillOne = new mdBill.billModel();
+                try {
+                    await mdProd.productModel.findByIdAndUpdate(objProd._id , objProd);
+                    await mdBill.cartModel.findByIdAndUpdate(objCart._id , objCart);
+                } catch (error) {
+                    
+                }
+            }
 
-            // objBillOne.id_user = req.query.idUser;
-            // objBillOne.cart = listCart;
-            // objBillOne.prices = req.query.Prices;
-            // objBillOne.date = year + "-" + month + "-" + date;
-            // objBillOne.status = "Chờ";
+            let date_ob = new Date();
+            let year = date_ob.getFullYear();
+            let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+            let date = ("0" + date_ob.getDate()).slice(-2);
 
-            // try {
-            //     await objBillOne.save();
-            //     msg = "Mua sản phẩm thành công"
-            //     isComplete = true;
-            // } catch (error) {
-            //     console.log(error);
-            //     msg = "Mua sản phẩm thất bại";
-            // }
-    //    }
+            let objBillOne = new mdBill.billModel();
+
+            objBillOne.id_user = req.query.idUser;
+            objBillOne.cart = sCart;
+            objBillOne.prices = req.query.Prices;
+            objBillOne.date = year + "-" + month + "-" + date;
+            objBillOne.status = "Chờ";
+
+            try {
+                await objBillOne.save();
+                msg = "Mua sản phẩm thành công"
+                isComplete = true;
+            } catch (error) {
+                console.log(error);
+                msg = "Mua sản phẩm thất bại";
+            }
+       }
     }
 
     res.status(200).json(
