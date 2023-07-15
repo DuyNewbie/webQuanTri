@@ -15,7 +15,7 @@ exports.list = async (req , res , next) => {
 exports.getOneUser = async (req , res , next) => {
     let msg = "";
     let isComplete = false;
-    let objUser = await mdUser.userModel.findOne({username : UserName})
+    let objUser = await mdUser.userModel.findOne({username : req.query.username})
 
     if(objUser){
         msg = "Lấy User thành công";
